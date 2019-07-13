@@ -1,17 +1,36 @@
 VERSION 1.0 CLASS
 BEGIN
-  MultiUse = -1  'True
-  Persistable = 0  'NotPersistable
-  DataBindingBehavior = 0  'vbNone
-  DataSourceBehavior  = 0  'vbNone
-  MTSTransactionMode  = 0  'NotAnMTSObject
+   MultiUse = -1
+   Persistable = 0
+   DataBindingBehavior = 0
+   DataSourceBehavior = 0
+   MTSTransactionMode = 0
 END
 Attribute VB_Name = "Directory"
 Attribute VB_GlobalNameSpace = False
 Attribute VB_Creatable = True
 Attribute VB_PredeclaredId = False
 Attribute VB_Exposed = False
+
+
 Option Explicit
+
+'VERSION 1.0 CLASS
+'BEGIN
+'  MultiUse = -1  'True
+'  Persistable = 0  'NotPersistable
+'  DataBindingBehavior = 0  'vbNone
+'  DataSourceBehavior  = 0  'vbNone
+'  MTSTransactionMode  = 0  'NotAnMTSObject
+'END
+'Attribute VB_Name = "Directory"
+'Attribute VB_GlobalNameSpace = False
+'Attribute VB_Creatable = True
+'Attribute VB_PredeclaredId = False
+'Attribute VB_Exposed = False
+'Attribute VB_Ext_KEY = "SavedWithClassBuilder6" ,"Yes"
+'Attribute VB_Ext_KEY = "Top_Level" ,"Yes"
+'Option Explicit
 Private Const FO_MOVE            As Long = &H1
 Private Const FOF_SIMPLEPROGRESS As Long = &H100
 Private Type SECURITY_ATTRIBUTES
@@ -66,16 +85,39 @@ Private Declare Function apilstrlen Lib "kernel32" Alias "lstrlenA" (ByVal lpStr
 Private Const E_ERR_BASE = 18160 + vbObjectError
 Private Const S_ERR_CannotGetPath    As String = "Cannot get path"
 Private Const S_ERR_ComponentFailure As String = "CSpecialFolders component failure"
-Public Function Create(ByVal Path As String) As Long
+Private Enum ESpecialFolder
+    eSpecialFolder_Programs = &H2
+    eSpecialFolder_Personal = &H5
+    eSpecialFolder_Favorites = &H6
+    eSpecialFolder_Startup = &H7
+    eSpecialFolder_Recent = &H8
+    eSpecialFolder_SendTo = &H9
+    eSpecialFolder_StartMenu = &HB
+    eSpecialFolder_DesktopDir = &H10
+    eSpecialFolder_Templates = &H15
+    eSpecialFolder_CommonStartMenu = &H16
+    eSpecialFolder_CommonPrograms = &H17
+    eSpecialFolder_CommonStartup = &H18
+    eSpecialFolder_CommonDesktopDir = &H19
+    eSpecialFolder_AppData = &H1A
+    eSpecialFolder_InternetCache = &H20
+    eSpecialFolder_Cookies = &H21
+    eSpecialFolder_History = &H22
+End Enum
+Private Enum EErrSpecialFolders
+    eErrSpecialFolders_CannotGetPath = E_ERR_BASE + 1
+    eErrSpecialFolders_ComponentFailure
+End Enum
+Public Function Create(ByVal path As String) As Long
     On Error Resume Next
-    If apiPathIsDirectory(Path) <> 0 Then
+    If apiPathIsDirectory(path) <> 0 Then
     End If
-    Create = apiCreateDirectory(Path, ByVal &H0)
+    Create = apiCreateDirectory(path, ByVal &H0)
 End Function
-Public Function Delete(ByVal Path As String) As Long
+Public Function Delete(ByVal path As String) As Long
     On Error Resume Next
-    If apiPathIsDirectory(Path) = 0 Then Return
-    Delete = apiRemoveDirectory(Path)
+    If apiPathIsDirectory(path) = 0 Then Return
+    Delete = apiRemoveDirectory(path)
 End Function
 Public Function Move(ByVal pathsource As String, ByVal destSource As String) As Long
     On Error Resume Next
@@ -89,9 +131,9 @@ Public Function Move(ByVal pathsource As String, ByVal destSource As String) As 
     End With
     Move = apiSHFileOperation(SHDirOp) 'Prompts the user to confirm deletion of the directory
 End Function
-Public Function Exists(ByVal Path As String) As Boolean
+Public Function Exists(ByVal path As String) As Boolean
     On Error Resume Next
-    Exists = CBool(apiPathIsDirectory(Path))
+    Exists = CBool(apiPathIsDirectory(path))
 End Function
 'Public Function QueryRecycleBin(ByRef q As SHQUERYRBINFO) As Long
 '    On Error Resume Next
@@ -105,37 +147,37 @@ End Function
 '    ret = apiSHEmptyRecycleBin(0, vbNullString, SHERB_NOPROGRESSUI)  'all recycle bins with 2nd null param
 '    EmptyRecycleBin = ret
 'End Function
+Private Function GetWindowsDirectory() As String
+    On Error Resume Next
+    Dim s As String
+    s = String(260, 0)
+    Dim ret As Long
+    ret = apiGetWindowsDirectory(s, Len(s))
+    GetWindowsDirectory = Left(s, ret) ' Left(s, InStr(1, s, vbNullString))
+    End Function
 Private Function GetCurrentDirectory() As String
     On Error Resume Next
-    Dim sSave As String
-    sSave = String(260, 0)
+    Dim s As String
+    s = String(260, 0)
     Dim ret As Long
-    ret = apiGetCurrentDirectory(260, sSave)
-    If ret <> 0 Then GetCurrentDirectory = sSave
+    ret = apiGetCurrentDirectory(Len(s), s)
+    GetCurrentDirectory = Left(s, ret)
 End Function
 Friend Function GetSystemDirectory() As String
     On Error Resume Next
-    Dim sSave As String
-    sSave = String(260, 0)
+    Dim s As String
+    s = String(260, 0)
     Dim ret As Long
-    ret = apiGetSystemDirectory(sSave, 260)
-    If ret <> 0 Then GetSystemDirectory = sSave
-End Function
-Private Function GetWindowsDirectory() As String
-    On Error Resume Next
-    Dim sSave As String
-    sSave = String(260, 0)
-    Dim ret As Long
-    ret = apiGetWindowsDirectory(sSave, 260)
-    If ret <> 0 Then GetWindowsDirectory = sSave
+    ret = apiGetSystemDirectory(s, Len(s))
+    If ret <> 0 Then GetSystemDirectory = Left(s, ret)
 End Function
 Private Function GetSystemWindowsDirectory() As String
     On Error Resume Next
-    Dim sSave As String
-    sSave = String(260, 0)
+    Dim s As String
+    s = String(260, 0)
     Dim ret As Long
-    ret = apiGetSystemWindowsDirectory(sSave, 260)
-    If ret <> 0 Then GetSystemWindowsDirectory = sSave
+    ret = apiGetSystemWindowsDirectory(s, 260)
+    If ret <> 0 Then GetSystemWindowsDirectory = Left(s, ret)
 End Function
 Private Function GetPath(ByVal SpecialFolder As ESpecialFolder) As String
     On Error GoTo hComponentFailure
@@ -149,15 +191,15 @@ Private Function GetPath(ByVal SpecialFolder As ESpecialFolder) As String
         lRet = apiSHGetPathFromIDList(ByVal IDL.mkid.cb, ByVal sPath)
         If lRet <> 0 Then
             sTemp = Left(sPath, apilstrlen(sPath)) ' Make sure we append a '\' to the path
-            sTemp = sTemp & IIf(Right$(sTemp, 1) = "\", "", "\")
+            sTemp = sTemp & IIf(Right(sTemp, 1) = "\", "", "\")
             GetPath = sTemp
         End If
     Else
         On Error GoTo 0
-        Err.Raise eErrSpecialFolders_CannotGetPath, App.EXEName & ".CSpecialFolders", S_ERR_CannotGetPath
+        Err.Raise eErrSpecialFolders_CannotGetPath, "VB65" & ".CSpecialFolders", S_ERR_CannotGetPath
     End If
     Exit Function
 hComponentFailure:
-    Err.Raise eErrSpecialFolders_ComponentFailure, App.EXEName & ".CSpecialFolders", S_ERR_ComponentFailure
+    Err.Raise eErrSpecialFolders_ComponentFailure, "VB65" & ".CSpecialFolders", S_ERR_ComponentFailure
 End Function
 

@@ -1,17 +1,36 @@
 VERSION 1.0 CLASS
 BEGIN
-  MultiUse = -1  'True
-  Persistable = 0  'NotPersistable
-  DataBindingBehavior = 0  'vbNone
-  DataSourceBehavior  = 0  'vbNone
-  MTSTransactionMode  = 0  'NotAnMTSObject
+   MultiUse = -1
+   Persistable = 0
+   DataBindingBehavior = 0
+   DataSourceBehavior = 0
+   MTSTransactionMode = 0
 END
 Attribute VB_Name = "Screen"
 Attribute VB_GlobalNameSpace = False
 Attribute VB_Creatable = True
 Attribute VB_PredeclaredId = False
 Attribute VB_Exposed = False
+
+
 Option Explicit
+
+'VERSION 1.0 CLASS
+'BEGIN
+'  MultiUse = -1  'True
+'  Persistable = 0  'NotPersistable
+'  DataBindingBehavior = 0  'vbNone
+'  DataSourceBehavior  = 0  'vbNone
+'  MTSTransactionMode  = 0  'NotAnMTSObject
+'END
+'Attribute VB_Name = "Screen"
+'Attribute VB_GlobalNameSpace = False
+'Attribute VB_Creatable = True
+'Attribute VB_PredeclaredId = False
+'Attribute VB_Exposed = False
+'Attribute VB_Ext_KEY = "SavedWithClassBuilder6" ,"Yes"
+'Attribute VB_Ext_KEY = "Top_Level" ,"Yes"
+'Option Explicit
 Private Const CCDEVICENAME                       As Long = 32
 Private Const CCFORMNAME                         As Long = 32
 Private Const DM_BITSPERPEL                      As Long = &H40000
@@ -102,8 +121,9 @@ End Type
 Private Declare Function apiChangeDisplaySettings Lib "user32" Alias "ChangeDisplaySettingsA" (ByRef lptypDevMode As typDevMODE, ByVal dwFlags As Long) As Long
 Private Declare Function apiChangeDisplaySettingsEx Lib "user32" Alias "ChangeDisplaySettingsExA" (ByRef lpszDeviceName As Any, ByRef lpDevMode As Any, ByVal hwnd As Long, ByVal dwFlags As Long, ByRef lParam As Any) As Long
 Private Declare Function apiEnumDisplayDevices Lib "user32" Alias "EnumDisplayDevicesA" (ByVal lpDevice As String, ByVal iDevNum As Long, ByRef lpDisplayDevice As DISPLAY_DEVICE, ByVal dwFlags As Long) As Long
-Private Declare Function apiEnumDisplayMonitors Lib "user32" Alias "EnumDisplayMonitors" (ByVal hDC As Long, ByRef lprcClip As Long, ByVal lpfnEnum As Long, ByRef dwData As Long) As Long
+Private Declare Function apiEnumDisplayMonitors Lib "user32" Alias "EnumDisplayMonitors" (ByVal HDC As Long, ByRef lprcClip As Long, ByVal lpfnEnum As Long, ByRef dwData As Long) As Long
 Private Declare Function apiEnumDisplaySettings Lib "user32" Alias "EnumDisplaySettingsA" (ByVal lpszDeviceName As String, ByVal iModeNum As Long, ByRef lptypDevMode As typDevMODE) As Long
+'Public Declare Function EnumDisplaySettings Lib "user32.dll" Alias "EnumDisplaySettingsA" (ByVal lpszDeviceName As String, ByVal iModeNum As Long, lpDevMode As DEVMODE) As Long
 Private Declare Function apiGetMonitorInfo Lib "user32" Alias "GetMonitorInfoA" (ByVal hMonitor As Long, ByRef lpmi As MONITORINFO) As Long
 Private Declare Function apiMonitorFromPoint Lib "user32" Alias "MonitorFromPoint" (ByVal x As Long, ByVal y As Long, ByVal dwFlags As Long) As Long
 Private Declare Function apiMonitorFromRect Lib "user32" Alias "MonitorFromRect" (ByRef lprc As RECT, ByVal dwFlags As Long) As Long
@@ -112,7 +132,7 @@ Private lMonitorCount As Long
 Public Bounds         As New Rectangle
 Public Primary        As Boolean
 Public WorkingArea    As New Rectangle
-Public Handle As Long
+Public Handle         As Long
 Friend Function AllScreens() As Screen()
     On Error Resume Next
     Dim i As Long
@@ -267,7 +287,7 @@ End Function
 '    On Error Resume Next
 '    Dim rc      As RECT
 '    Dim sRegKey As String
-'    sRegKey = IIf((App.title <> ""), App.title, App.EXEName)
+'    sRegKey = IIf((appTitled <> ""), appTitled, "VB65")
 '    If Trim(sWinName) <> "" Then sRegKey = sRegKey & "_" & Trim(sWinName)
 '    If apiGetWindowRect(hwnd, rc) = 0 Then Exit Sub
 '    SaveSetting sRegKey, "WindowPosition", "Left", rc.Left
@@ -281,7 +301,7 @@ End Function
 '    Dim hMonitor    As Long
 '    Dim MI          As MONITORINFO
 '    Dim sRegKey As String
-'    sRegKey = IIf((App.title <> ""), App.title, App.EXEName)
+'    sRegKey = IIf((appTitled <> ""), appTitled, "VB65")
 '    If Trim(sWinName) <> "" Then sRegKey = sRegKey & "_" & Trim(sWinName)
 '    If apiGetWindowRect(hwnd, rc) = 0 Then Exit Sub
 '    Left = GetSetting(sRegKey, "WindowPosition", "Left", rc.Left)
@@ -316,7 +336,7 @@ Friend Sub EnumDispSettings()
     dm.dmSize = Len(dm)
     retval = apiEnumDisplaySettings(vbNullString, ENUM_CURRENT_SETTINGS, dm)
     Dim txt As String
-   ' txt = txt & "Bits Per Pixel: " & dm.dmBitsPerPixel & vbCrLf
+    ' txt = txt & "Bits Per Pixel: " & dm.dmBitsPerPixel & vbCrLf
     txt = txt & "Width (Pixels): " & dm.dmPelsWidth & vbCrLf
     txt = txt & "Height (Pixels):" & dm.dmPelsHeight & vbCrLf
     txt = txt & "Display Freq.:  " & dm.dmDisplayFrequency & vbCrLf

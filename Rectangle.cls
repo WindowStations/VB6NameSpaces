@@ -1,17 +1,37 @@
 VERSION 1.0 CLASS
 BEGIN
-  MultiUse = -1  'True
-  Persistable = 0  'NotPersistable
-  DataBindingBehavior = 0  'vbNone
-  DataSourceBehavior  = 0  'vbNone
-  MTSTransactionMode  = 0  'NotAnMTSObject
+   MultiUse = -1
+   Persistable = 0
+   DataBindingBehavior = 0
+   DataSourceBehavior = 0
+   MTSTransactionMode = 0
 END
 Attribute VB_Name = "Rectangle"
 Attribute VB_GlobalNameSpace = False
 Attribute VB_Creatable = True
 Attribute VB_PredeclaredId = False
 Attribute VB_Exposed = False
+
+
 Option Explicit
+
+'VERSION 1.0 CLASS
+'BEGIN
+'  MultiUse = -1  'True
+'  Persistable = 0  'NotPersistable
+'  DataBindingBehavior = 0  'vbNone
+'  DataSourceBehavior  = 0  'vbNone
+'  MTSTransactionMode  = 0  'NotAnMTSObject
+'END
+'Attribute VB_Name = "Rectangle"
+'Attribute VB_GlobalNameSpace = False
+'Attribute VB_Creatable = True
+'Attribute VB_PredeclaredId = False
+'Attribute VB_Exposed = False
+'Attribute VB_Ext_KEY = "SavedWithClassBuilder6" ,"Yes"
+'Attribute VB_Ext_KEY = "Member0" ,"Size"
+'Attribute VB_Ext_KEY = "Top_Level" ,"Yes"
+'Option Explicit
 Private Type RECT
     Left            As Long
     Top             As Long
@@ -31,74 +51,74 @@ Private Declare Function apiSetRect Lib "user32" Alias "SetRect" (ByRef lpRect A
 Private Declare Function apiSetRectEmpty Lib "user32" Alias "SetRectEmpty" (ByRef lpRect As RECT) As Long
 Private Declare Function apiSubtractRect Lib "user32" Alias "SubtractRect" (ByRef lprcDst As RECT, ByRef lprcSrc1 As RECT, ByRef lprcSrc2 As RECT) As Long
 Private Declare Function apiUnionRect Lib "user32" Alias "UnionRect" (ByRef lprcDst As RECT, ByRef lprcSrc1 As RECT, ByRef lprcSrc2 As RECT) As Long
-Private mvarLocation  As New Point
-Private mvarSize      As New Size
-Private mvarTop       As Long
-Private mvarLeft      As Long
-Private mvarBottom    As Long
-Private mvarRight     As Long
-Private mvarHeight    As Long
-Private mvarWidth_    As Long
-Private mvarX         As Long
-Private mvarY         As Long
-Public Property Let y(ByVal vData As Long)
+Private mvarLocation As New Point
+Private mvarSize     As New Size
+Private mvarTop      As Long
+Private mvarLeft     As Long
+Private mvarBottom   As Long
+Private mvarRight    As Long
+Private mvarHeight   As Long
+Private mvarWidth_   As Long
+Private mvarX        As Long
+Private mvarY        As Long
+Friend Property Let y(ByVal vData As Long)
     mvarY = vData
 End Property
-Public Property Get y() As Long
+Friend Property Get y() As Long
     y = mvarY
 End Property
-Public Property Let x(ByVal vData As Long)
+Friend Property Let x(ByVal vData As Long)
     mvarX = vData
 End Property
-Public Property Get x() As Long
+Friend Property Get x() As Long
     x = mvarX
 End Property
-Public Property Let Width_(ByVal vData As Long)
+Friend Property Let Width_(ByVal vData As Long)
     mvarWidth_ = vData
 End Property
-Public Property Get Width_() As Long
+Friend Property Get Width_() As Long
     Width_ = mvarWidth_
 End Property
-Public Property Let Height(ByVal vData As Long)
+Friend Property Let Height(ByVal vData As Long)
     mvarHeight = vData
 End Property
-Public Property Get Height() As Long
+Friend Property Get Height() As Long
     Height = mvarHeight
 End Property
-Public Property Set Location(ByVal vData As Point)
+Friend Property Set Location(ByVal vData As Point)
     Set mvarLocation = vData
 End Property
-Public Property Get Location() As Point
+Friend Property Get Location() As Point
     Set Location = mvarLocation
 End Property
-Public Property Set Size(ByVal vData As Size)
+Friend Property Set Size(ByVal vData As Size)
     Set mvarSize = vData
 End Property
-Public Property Get Size() As Size
+Friend Property Get Size() As Size
     Set Size = mvarSize
 End Property
-Public Property Let Top(ByVal vData As Long)
+Friend Property Let Top(ByVal vData As Long)
     mvarTop = vData
 End Property
-Public Property Get Top() As Long
+Friend Property Get Top() As Long
     Top = mvarTop
 End Property
-Public Property Let Left(ByVal vData As Long)
+Friend Property Let Left(ByVal vData As Long)
     mvarLeft = vData
 End Property
-Public Property Get Left() As Long
+Friend Property Get Left() As Long
     Left = mvarLeft
 End Property
-Public Property Let Bottom(ByVal vData As Long)
+Friend Property Let Bottom(ByVal vData As Long)
     mvarBottom = vData
 End Property
-Public Property Get Bottom() As Long
+Friend Property Get Bottom() As Long
     Bottom = mvarBottom
 End Property
-Public Property Let Right(ByVal vData As Long)
+Friend Property Let Right(ByVal vData As Long)
     mvarRight = vData
 End Property
-Public Property Get Right() As Long
+Friend Property Get Right() As Long
     Right = mvarRight
 End Property
 Private Sub FromRectangle(ByRef rDestination As RECT, ByRef rSource As Rectangle)
@@ -146,7 +166,7 @@ Friend Sub Copy(ByRef rDestination As Rectangle, ByRef rSource As Rectangle)
     Call apiCopyRect(rctdest, rctsour)
     Call FromRECT(rctdest, rDestination)
 End Sub
-Friend Sub Offset(ByRef pt As Point, ByRef lpRect As Rectangle)
+Friend Sub offset(ByRef pt As Point, ByRef lpRect As Rectangle)
     On Error Resume Next
     Dim r As RECT
     Call FromRectangle(r, lpRect)

@@ -1,479 +1,698 @@
 VERSION 1.0 CLASS
 BEGIN
-  MultiUse = -1  'True
-  Persistable = 0  'NotPersistable
-  DataBindingBehavior = 0  'vbNone
-  DataSourceBehavior  = 0  'vbNone
-  MTSTransactionMode  = 0  'NotAnMTSObject
+   MultiUse = -1
+   Persistable = 0
+   DataBindingBehavior = 0
+   DataSourceBehavior = 0
+   MTSTransactionMode = 0
 END
 Attribute VB_Name = "Sendkeys"
 Attribute VB_GlobalNameSpace = False
 Attribute VB_Creatable = True
 Attribute VB_PredeclaredId = False
 Attribute VB_Exposed = False
-Option Explicit
-Public Enum Keys
-    VK_None = 0
-    VK_LButton = 1
-    VK_RButton = 2
-    VK_Cancel = 3
-    VK_MButton = 4
-    VK_XButton1 = 5
-    VK_XButton2 = 6
-    VK_LButton_XButton2 = 7
-    VK_Back = 8
-    VK_Tab = 9
-    VK_LineFeed = 10
-    VK_LButton_LineFeed = 11
-    VK_Clear = 12
-    VK_Return = 13
-    VK_RButton_Clear = 14
-    VK_RButton_Return = 15
-    VK_ShiftKey = 16
-    VK_ControlKey = 17
-    VK_Menu = 18
-    VK_Pause = 19
-    VK_Capital = 20
-    VK_KanaMode = 21
-    VK_RButton_Capital = 22
-    VK_JunjaMode = 23
-    VK_FinalMode = 24
-    VK_HanjaMode = 25
-    VK_RButton_FinalMode = 26
-    VK_Escape = 27
-    VK_IMEConvert = 28
-    VK_IMENonconvert = 29
-    VK_IMEAceept = 30
-    VK_IMEModeChange = 31
-    VK_Space = 32
-    VK_PageUp = 33
-    VK_Next = 34
-    VK_End = 35
-    VK_Home = 36
-    VK_Left = 37
-    VK_Up = 38
-    VK_Right = 39
-    VK_Down = 40
-    VK_Select = 41
-    VK_Print = 42
-    VK_Execute = 43
-    VK_PrintScreen = 44
-    VK_Insert = 45
-    VK_Delete = 46
-    VK_Help = 47
-    VK_D0 = 48
-    VK_D1 = 49
-    VK_D2 = 50
-    VK_D3 = 51
-    VK_D4 = 52
-    VK_D5 = 53
-    VK_D6 = 54
-    VK_D7 = 55
-    VK_D8 = 56
-    VK_D9 = 57
-    VK_RButton_D8 = 58
-    VK_RButton_D9 = 59
-    VK_MButton_D8 = 60
-    VK_MButton_D9 = 61
-    VK_XButton2_D8 = 62
-    VK_XButton2_D9 = 63
-    VK_64 = 64
-    VK_A = 65
-    VK_B = 66
-    VK_C = 67
-    VK_D = 68
-    VK_E = 69
-    VK_F = 70
-    VK_G = 71
-    VK_H = 72
-    VK_I = 73
-    VK_J = 74
-    VK_K = 75
-    VK_L = 76
-    VK_M = 77
-    VK_N = 78
-    VK_O = 79
-    VK_P = 80
-    VK_Q = 81
-    VK_R = 82
-    VK_S = 83
-    VK_T = 84
-    VK_U = 85
-    VK_V = 86
-    VK_W = 87
-    VK_X = 88
-    VK_Y = 89
-    VK_Z = 90
-    VK_LWin = 91
-    VK_RWin = 92
-    VK_Apps = 93
-    VK_RButton_RWin = 94
-    VK_Sleep = 95
-    VK_NumPad0 = 96
-    VK_NumPad1 = 97
-    VK_NumPad2 = 98
-    VK_NumPad3 = 99
-    VK_NumPad4 = 100
-    VK_NumPad5 = 101
-    VK_NumPad6 = 102
-    VK_NumPad7 = 103
-    VK_NumPad8 = 104
-    VK_NumPad9 = 105
-    VK_Multiply = 106
-    VK_Add = 107
-    VK_Separator = 108
-    VK_Subtract = 109
-    VK_Decimal = 110
-    VK_Divide = 111
-    VK_F1 = 112
-    VK_F2 = 113
-    VK_F3 = 114
-    VK_F4 = 115
-    VK_F5 = 116
-    VK_F6 = 117
-    VK_F7 = 118
-    VK_F8 = 119
-    VK_F9 = 120
-    VK_F10 = 121
-    VK_F11 = 122
-    VK_F12 = 123
-    VK_F13 = 124
-    VK_F14 = 125
-    VK_F15 = 126
-    VK_F16 = 127
-    VK_F17 = 128
-    VK_F18 = 129
-    VK_F19 = 130
-    VK_F20 = 131
-    VK_F21 = 132
-    VK_F22 = 133
-    VK_F23 = 134
-    VK_F24 = 135
-    VK_Back_F17 = 136
-    VK_Back_F18 = 137
-    VK_Back_F19 = 138
-    VK_Back_F20 = 139
-    VK_Back_F21 = 140
-    VK_Back_F22 = 141
-    VK_Back_F23 = 142
-    VK_Back_F24 = 143
-    VK_NumLock = 144
-    VK_Scroll = 145
-    VK_RButton_NumLock = 146
-    VK_RButton_Scroll = 147
-    VK_MButton_NumLock = 148
-    VK_MButton_Scroll = 149
-    VK_XButton2_NumLock = 150
-    VK_XButton2_Scroll = 151
-    VK_Back_NumLock = 152
-    VK_Back_Scroll = 153
-    VK_LineFeed_NumLock = 154
-    VK_LineFeed_Scroll = 155
-    VK_Clear_NumLock = 156
-    VK_Clear_Scroll = 157
-    VK_RButton_Clear_NumLock = 158
-    VK_RButton_Clear_Scroll = 159
-    VK_LShiftKey = 160
-    VK_RShiftKey = 161
-    VK_LControlKey = 162
-    VK_RControlKey = 163
-    VK_LMenu = 164
-    VK_RMenu = 165
-    VK_BrowserBack = 166
-    VK_BrowserForward = 167
-    VK_BrowserRefresh = 168
-    VK_BrowserStop = 169
-    VK_BrowserSearch = 170
-    VK_BrowserFavorites = 171
-    VK_BrowserHome = 172
-    VK_VolumeMute = 173
-    VK_VolumeDown = 174
-    VK_VolumeUp = 175
-    VK_MediaNextTrack = 176
-    VK_MediaPreviousTrack = 177
-    VK_MediaStop = 178
-    VK_MediaPlayPause = 179
-    VK_LaunchMail = 180
-    VK_SelectMedia = 181
-    VK_LaunchApplication1 = 182
-    VK_LaunchApplication2 = 183
-    VK_Back_MediaNextTrack = 184
-    VK_Back_MediaPreviousTrack = 185
-    VK_Oem1 = 186
-    VK_Oemplus = 187
-    VK_Oemcomma = 188
-    VK_OemMinus = 189
-    VK_OemPeriod = 190
-    VK_OemQuestion = 191
-    VK_Oemtilde = 192
-    VK_LButton_Oemtilde = 193
-    VK_RButton_Oemtilde = 194
-    VK_Cancel_Oemtilde = 195
-    VK_MButton_Oemtilde = 196
-    VK_XButton1_Oemtilde = 197
-    VK_XButton2_Oemtilde = 198
-    VK_LButton_XButton2_Oemtilde = 199
-    VK_Back_Oemtilde = 200
-    VK_Tab_Oemtilde = 201
-    VK_LineFeed_Oemtilde = 202
-    VK_LButton_LineFeed_Oemtilde = 203
-    VK_Clear_Oemtilde = 204
-    VK_Return_Oemtilde = 205
-    VK_RButton_Clear_Oemtilde = 206
-    VK_RButton_Return_Oemtilde = 207
-    VK_ShiftKey_Oemtilde = 208
-    VK_ControlKey_Oemtilde = 209
-    VK_Menu_Oemtilde = 210
-    VK_Pause_Oemtilde = 211
-    VK_Capital_Oemtilde = 212
-    VK_KanaMode_Oemtilde = 213
-    VK_RButton_Capital_Oemtilde = 214
-    VK_JunjaMode_Oemtilde = 215
-    VK_FinalMode_Oemtilde = 216
-    VK_HanjaMode_Oemtilde = 217
-    VK_RButton_FinalMode_Oemtilde = 218
-    VK_OemOpenBrackets = 219
-    VK_Oem5 = 220
-    VK_Oem6 = 221
-    VK_Oem7 = 222
-    VK_Oem8 = 223
-    VK_Space_Oemtilde = 224
-    VK_PageUp_Oemtilde = 225
-    VK_OemBackslash = 226
-    VK_LButton_OemBackslash = 227
-    VK_Home_Oemtilde = 228
-    VK_ProcessKey = 229
-    VK_MButton_OemBackslash = 230
-    VK_Packet = 231
-    VK_Down_Oemtilde = 232
-    VK_Select_Oemtilde = 233
-    VK_Back_OemBackslash = 234
-    VK_Tab_OemBackslash = 235
-    VK_PrintScreen_Oemtilde = 236
-    VK_Back_ProcessKey = 237
-    VK_Clear_OemBackslash = 238
-    VK_Back_Packet = 239
-    VK_D0_Oemtilde = 240
-    VK_D1_Oemtilde = 241
-    VK_ShiftKey_OemBackslash = 242
-    VK_ControlKey_OemBackslash = 243
-    VK_D4_Oemtilde = 244
-    VK_ShiftKey_ProcessKey = 245
-    VK_Attn = 246
-    VK_Crsel = 247
-    VK_Exsel = 248
-    VK_EraseEof = 249
-    VK_Play = 250
-    VK_Zoom = 251
-    VK_NoName = 252
-    VK_Pa1 = 253
-    VK_OemClear = 254
-    VK_LButton_OemClear = 255
-End Enum
-Const ASFW_ANY        As Long = -1
-Const GW_HWNDNEXT     As Long = 2
-Const GA_ROOT         As Long = 2
-Const HC_GETNEXT      As Long = 1
-Const KEYEVENTF_KEYUP As Long = 2
-Const LSFW_LOCK       As Long = 1
-Const LSFW_UNLOCK     As Long = 2
-Const MAX_PATH = 260
-Const NEGATIVE As Long = -1
-Const PROCESS_QUERY_INFORMATION = 1024
-Const PROCESS_VM_READ = 16
-Const SW_HIDE                 As Long = 0
-Const SW_SHOWNORMAL           As Long = 1
-Const SW_SHOWMINIMIZED        As Long = 2
-Const WH_KEYBOARD_LL          As Long = 13
-Const WM_SETTEXT              As Long = 12
-Const WM_KEYDOWN              As Long = 256
-Const WM_KEYUP                As Long = 257
-Const HWND_DESKTOP            As Long = 0
-Const HWND_NOTOPMOST          As Long = -2
-Const HWND_TOP                As Long = 0
-Const HWND_TOPMOST            As Long = -1
-Const GW_HWNDFIRST            As Long = 0
-Const MOUSEEVENTF_MOVE        As Long = 1
-Const MOUSEEVENTF_LEFTDOWN    As Long = 2
-Const MOUSEEVENTF_LEFTUP      As Long = 4
-Const MOUSEEVENTF_RIGHTDOWN   As Long = 8
-Const MOUSEEVENTF_RIGHTUP     As Long = 16
-Const MOUSEEVENTF_MIDDLEDOWN  As Long = 32
-Const MOUSEEVENTF_MIDDLEUP    As Long = 64
-Const MOUSEEVENTF_XDOWN       As Long = 128
-Const MOUSEEVENTF_XUP         As Long = 256
-Const MOUSEEVENTF_WHEEL       As Long = 2048
-Const MOUSEEVENTF_VIRTUALDESK As Long = 16384
-Const MOUSEEVENTF_ABSOLUTE    As Long = 32768
-Const QS_ALLQUEUE             As Long = 511
-Const SM_CXSCREEN             As Long = 0
-Const SM_CYSCREEN             As Long = 1
-Const SM_FULLSCREEN           As Long = 65535
-Const SWP_NOSIZE              As Long = 1
-Const SWP_NOMOVE              As Long = 2
-Const SWP_NOACTIVATE          As Long = 16
-Const SWP_SHOWWINDOW          As Long = 64
-Const WM_COMMAND              As Long = 273 '
-Const WM_LBUTTONDBLCLK        As Long = 515
-Const WM_LBUTTONDOWN          As Long = 513
-Const WM_LBUTTONUP            As Long = 514
-Const WM_MBUTTONDBLCLK        As Long = 521
-Const WM_MBUTTONDOWN          As Long = 519
-Const WM_MBUTTONUP            As Long = 520
-Const WM_RBUTTONDBLCLK        As Long = 518
-Const WM_RBUTTONDOWN          As Long = 516
-Const WM_RBUTTONUP            As Long = 517
-Private Const PM_REMOVE   As Long = &H1
-Private Type POINTAPI
-    x As Long
-    y As Long
-End Type
-Private Type MSG
-    hwnd As Long
-    message As Long
-    wParam As Long
-    lParam As Long
-    time As Long
-    pt As POINTAPI
-End Type
-Private Type RECT
-    rLeft As Long
-    rTop As Long
-    rRight As Long
-    rBottom As Long
-End Type
-Private Type GUITHREADINFO
-    cbSize As Long
-    Flags As Long
-    hWndActive As Long
-    hWndFocus As Long
-    hWndCapture As Long
-    hWndMenuOwner As Long
-    hWndMoveSize As Long
-    hWndCaret As Long
-    rcCaret As RECT
-End Type
-Private Type ITEMINFO
-    Width As Long
-    Height As Long
-    Right As Long
-    Left As Long
-    Top As Long
-    Bottom As Long
-    Center As POINTAPI
-End Type
-Private Type MENUINFO
-    hwnd As Long
-    hMenu As Long
-    hSubMenu As Long
-End Type
-Private Type WINSTATE
-    IsIconic As Boolean
-    IsHidden As Boolean
-    IsDisabled As Boolean
-    IsChildHidden As Boolean
-    IsChildDisabled As Boolean
-End Type
-Private Declare Function apiAllowSetForegroundWindow Lib "user32" Alias "AllowSetForegroundWindow" (ByVal dwProcessId As Long) As Boolean
-Private Declare Function apiAttachThreadInput Lib "user32" Alias "AttachThreadInput" (ByVal idAttach As Long, ByVal idAttachTo As Long, ByVal fAttach As Long) As Long
-Private Declare Function apiCallNextKeyHookEx Lib "user32" Alias "CallNextHookEx" (ByVal hHook As Long, ByVal nCode As Long, ByVal wParam As Long, ByVal lParam As Long) As Long
-Private Declare Function apiCharLower Lib "user32" Alias "CharLowerA" (ByVal lpsz As String) As Long
-Private Declare Function apiChildWindowFromPointEx Lib "user32" Alias "ChildWindowFromPointEx" (ByVal hWndParent As Long, ByVal ptx As Long, ByVal pty As Long, ByVal uFlags As Long) As Long
-Private Declare Function apiCloseHandle Lib "kernel32" Alias "CloseHandle" (ByVal Handle As Long) As Long
-Private Declare Function apiEnableWindow Lib "user32" Alias "EnableWindow" (ByVal hwnd As Long, ByVal fEnable As Boolean) As Boolean
-Private Declare Function apiEnumProcessModules Lib "PSAPI" Alias "EnumProcessModules" (ByVal hProcess As Long, ByRef lphModule As Long, ByVal cb As Long, ByRef cbNeeded As Long) As Long
-Private Declare Function apiEnumProcesses Lib "PSAPI" Alias "EnumProcesses" (ByRef lpidProcess As Long, ByVal cb As Long, ByRef cbNeeded As Long) As Long
-Private Declare Function apiFindWindow Lib "user32" Alias "FindWindowA" (ByVal lpClassName As String, ByVal lpWindowName As String) As Long
-Private Declare Function apiFindWindowEx Lib "user32" Alias "FindWindowExA" (ByVal hWnd1 As Long, ByVal hWnd2 As Long, ByVal lpsz1 As String, ByVal lpsz2 As String) As Long
-Private Declare Function apiGetActiveWindow Lib "user32" Alias "GetActiveWindow" () As Long
-Private Declare Function apiGetAncestor Lib "user32" Alias "GetAncestor" (ByVal hwnd As Long, ByVal gaFlags As Long) As Long
-Private Declare Function apiGetClassName Lib "user32" Alias "GetClassNameA" (ByVal hwnd As Long, ByVal lpClassName As String, ByVal nMaxCount As Long) As Long
-Private Declare Function apiGetCurrentThreadId Lib "kernel32" Alias "GetCurrentThreadId" () As Long
-Private Declare Function apiGetCursorPos Lib "user32" Alias "GetCursorPos" (ByRef lpPoint As POINTAPI) As Long
-Private Declare Function apiGetDesktopWindow Lib "user32" Alias "GetDesktopWindow" () As Long
-Private Declare Function apiGetForegroundWindow Lib "user32" Alias "GetForegroundWindow" () As Long
-Private Declare Function apiGetGUIThreadInfo Lib "user32" Alias "GetGUIThreadInfo" (ByVal dwThreadId As Long, ByRef lpGUIThreadInfo As GUITHREADINFO) As Long
-Private Declare Function apiGetInputState Lib "user32" Alias "GetInputState" () As Long
-Private Declare Function apiGetKeyState Lib "user32" Alias "GetKeyState" (ByVal vKey As Long) As Long
-Private Declare Function apiGetModuleFileNameExA Lib "PSAPI" Alias "GetModuleFileNameExA" (ByVal hProcess As Long, ByVal hModule As Long, ByVal ModuleName As String, ByVal nSize As Long) As Long
-Private Declare Function apiGetParent Lib "user32" Alias "GetParent" (ByVal hwnd As Long) As Long
-Private Declare Function apiGetQueueStatus Lib "user32" Alias "GetQueueStatus" (ByVal fuFlags As Long) As Long
-Private Declare Function apiGetTickCount Lib "kernel32" Alias "GetTickCount" () As Long
-Private Declare Function apiGetTopWindow Lib "user32" Alias "GetTopWindow" (ByVal hwnd As Long) As Long
-Private Declare Function apiGetWindow Lib "user32" Alias "GetWindow" (ByVal hwnd As Long, ByVal wCmd As Long) As Long
-Private Declare Function apiGetWindowText Lib "user32" Alias "GetWindowTextA" (ByVal hwnd As Long, ByVal lpString As String, ByVal cch As Long) As Long
-Private Declare Function apiGetWindowTextLength Lib "user32" Alias "GetWindowTextLengthA" (ByVal hwnd As Long) As Long
-Private Declare Function apiGetWindowThreadProcessId Lib "user32" Alias "GetWindowThreadProcessId" (ByVal hwnd As Long, ByRef lpdwProcessId As Long) As Long
-Private Declare Function apiIsIconic Lib "user32" Alias "IsIconic" (ByVal hwnd As Long) As Boolean
-Private Declare Function apiIsWindow Lib "user32" Alias "IsWindow" (ByVal hwnd As Long) As Boolean
-Private Declare Function apiIsWindowEnabled Lib "user32" Alias "IsWindowEnabled" (ByVal hwnd As Long) As Boolean
-Private Declare Function apiIsWindowVisible Lib "user32" Alias "IsWindowVisible" (ByVal hwnd As Long) As Long
-Private Declare Function apikeybd_event Lib "user32" Alias "keybd_event" (ByVal vKey As Long, ByVal bScan As Long, ByVal dwFlags As Long, ByVal dwExtraInfo As Long) As Boolean
-Private Declare Function apiLockSetForegroundWindow Lib "user32" Alias "LockSetForegroundWindow" (ByVal uLockCode As Long) As Boolean
-Private Declare Function apiLockWindowUpdate Lib "user32" Alias "LockWindowUpdate" (ByVal hWndLock As Long) As Long
-Private Declare Function apiOpenProcess Lib "kernel32" Alias "OpenProcess" (ByVal dwDesiredAccessas As Long, ByVal bInheritHandle As Long, ByVal dwProcId As Long) As Long
-Private Declare Function apiPostMessage Lib "user32" Alias "PostMessageA" (ByVal hwnd As Long, ByVal wMsg As Long, ByVal wParam As Long, ByVal lParam As String) As Boolean
-Private Declare Function apiSendMessage Lib "user32" Alias "SendMessageA" (ByVal hwnd As Long, ByVal wMsg As Long, ByVal wParam As Long, ByVal lParam As String) As Boolean
-Private Declare Function apiSetFocus Lib "user32" Alias "SetFocus" (ByVal hwnd As Long) As Long
-Private Declare Function apiSetForegroundWindow Lib "user32" Alias "SetForegroundWindow" (ByVal hwnd As Long) As Long
-Private Declare Function apiSetWindowsKeyHookEx Lib "user32" Alias "SetWindowsHookExA" (ByVal idHook As Long, ByVal lpfn As Long, ByVal hmod As Long, ByVal dwThreadId As Long) As Long
-Private Declare Function apiShowWindow Lib "user32" Alias "ShowWindow" (ByVal hwnd As Long, ByVal nCmdShow As Long) As Boolean
-Private Declare Function apiSwitchToThread Lib "kernel32" Alias "SwitchToThread" () As Long
-Private Declare Function apiUnhookWindowsHookEx Lib "user32" Alias "UnhookWindowsHookEx" (ByVal hHook As Long) As Long
-Private Declare Function apiVkKeyScan Lib "user32" Alias "VkKeyScanA" (ByVal cChar2 As Long) As Long
-Private Declare Function apiWaitForInputIdle Lib "user32" Alias "WaitForInputIdle" (ByVal hProcess As Long, ByVal dwMilliseconds As Long) As Long
-Private Declare Function apiWindowFromPoint Lib "user32" Alias "WindowFromPoint" (ByVal xPoint As Long, ByVal yPoint As Long) As Long
-Private Declare Function apiGetMenu Lib "user32" Alias "GetMenu" (ByVal hwnd As Long) As Long
-Private Declare Function apiGetMenuItemCount Lib "user32" Alias "GetMenuItemCount" (ByVal hMenu As Long) As Long
-Private Declare Function apiGetMenuItemID Lib "user32" Alias "GetMenuItemID" (ByVal hMenu As Long, ByVal nPos As Long) As Long
-Private Declare Function apiGetMenuItemRect Lib "user32" Alias "GetMenuItemRect" (ByVal hwnd As Long, ByVal hMenu As Long, ByVal uItem As Long, ByRef lprcItem As RECT) As Long
-Private Declare Function apiGetMenuString Lib "user32" Alias "GetMenuStringA" (ByVal hMenu As Long, ByVal wIDItem As Long, ByVal lpString As String, ByVal nMaxCount As Long, ByVal wFlag As Long) As Long
-Private Declare Function apiGetMessageExtraInfo Lib "user32" Alias "GetMessageExtraInfo" () As Long
-Private Declare Function apiGetSubMenu Lib "user32" Alias "GetSubMenu" (ByVal hMenu As Long, ByVal nPos As Long) As Long
-Private Declare Function apiGetSystemMetrics Lib "user32" Alias "GetSystemMetrics" (ByVal nIndex As Long) As Long
-Private Declare Function apiGetWindowRect Lib "user32" Alias "GetWindowRect" (ByVal hwnd As Long, ByRef lpRect As RECT) As Boolean
-Private Declare Function apiIsMenu Lib "user32" Alias "IsMenu" (ByVal hMenu As Long) As Boolean
-Private Declare Function apimouse_event Lib "user32" Alias "mouse_event" (ByVal dwFlags As Long, ByVal dx As Long, ByVal dy As Long, ByVal cButtons As Long, ByVal dwExtraInfo As Long) As Boolean
-Private Declare Function apiMoveWindow Lib "user32" Alias "MoveWindow" (ByVal hwnd As Long, ByVal x As Long, ByVal y As Long, ByVal nWidth As Long, ByVal nHeight As Long, ByVal bRepaint As Boolean) As Boolean
-Private Declare Function apiSetCursorPos Lib "user32" Alias "SetCursorPos" (ByVal x As Long, ByVal y As Long) As Boolean
-Private Declare Function apiSetWindowPos Lib "user32" Alias "SetWindowPos" (ByVal hwnd As Long, ByVal hWndInsertAfter As Long, ByVal x As Long, ByVal y As Long, ByVal cx As Long, ByVal cy As Long, ByVal wFlags As Long) As Long
-Private Declare Function apiPeekMessage Lib "user32" Alias "PeekMessageA" (ByRef lpMsg As MSG, ByVal hwnd As Long, ByVal wMsgFilterMin As Long, ByVal wMsgFilterMax As Long, ByVal wRemoveMsg As Long) As Long
-Private Declare Function apiTranslateMessage Lib "user32" Alias "TranslateMessage" (ByRef lpMsg As MSG) As Long
-Private Declare Function apiDispatchMessage Lib "user32" Alias "DispatchMessageA" (ByRef lpMsg As MSG) As Long
 
-Friend Function Flush(Optional ByVal checkQueue As Boolean = True, Optional ByVal returnQueued As Boolean = False) As Long
-    Flush = -1
-    If checkQueue = True And IsQueued = False Then Exit Function
-    Dim d As Long
-    d = DoEvents_
-    If returnQueued = False Then Flush = d
-    If returnQueued = True Then Flush = apiGetQueueStatus(QS_ALLQUEUE)
-End Function 'If specified this function returns true if there are still message in the queue, otherwise false will return the number of messages dispatched to applications
-Friend Function GetQueueStatus(ByVal QS_ As Long) As Long
+
+Option Explicit
+
+'VERSION 1.0 CLASS
+'BEGIN
+'  MultiUse = -1  'True
+'  Persistable = 0  'NotPersistable
+'  DataBindingBehavior = 0  'vbNone
+'  DataSourceBehavior  = 0  'vbNone
+'  MTSTransactionMode  = 0  'NotAnMTSObject
+'END
+'Attribute VB_Name = "Sendkeys"
+'Attribute VB_GlobalNameSpace = False
+'Attribute VB_Creatable = True
+'Attribute VB_PredeclaredId = False
+'Attribute VB_Exposed = False
+'Attribute VB_Ext_KEY = "SavedWithClassBuilder6" ,"Yes"
+'Attribute VB_Ext_KEY = "Top_Level" ,"Yes"
+'Option Explicit
+Const KEYEVENTF_KEYDOWN As Long = 0
+Const KEYEVENTF_KEYUP As Long = 2
+Const NEGATIVE As Long = -1
+Private Declare Function apiCharLower Lib "user32" Alias "CharLowerA" (ByVal lpsz As String) As Long
+Private Declare Function apiGetInputState Lib "user32" Alias "GetInputState" () As Long
+Private Declare Function apiGetMessageExtraInfo Lib "user32" Alias "GetMessageExtraInfo" () As Long
+Private Declare Function apikeybd_event Lib "user32" Alias "keybd_event" (ByVal vKey As Long, ByVal bScan As Long, ByVal dwFlags As Long, ByVal dwExtraInfo As Long) As Boolean
+Private Declare Function apiVkKeyScan Lib "user32" Alias "VkKeyScanA" (ByVal cChar2 As Long) As Long
+Friend Function Send(ByVal cText As String) As Long
     On Error Resume Next
-    GetQueueStatus = apiGetQueueStatus(QS_ALLQUEUE)
-End Function
-Friend Function GetInputState() As Long
-    On Error Resume Next
-    GetInputState = apiGetInputState
-End Function
-Friend Function IsQueued() As Boolean
-    If apiGetInputState <> 0 Then IsQueued = True: Exit Function
-    If apiGetQueueStatus(QS_ALLQUEUE) <> 0 Then IsQueued = True: Exit Function
-    IsQueued = False
-End Function
-'The alternative function for DoEvents:
-Friend Function DoEvents_() As Long
-    Dim i    As Long
-    Dim cMsg As MSG
+    Dim UserCapsLock   As Boolean
+    Dim TextLength     As Long
+    Dim vk             As Keys
+    Dim TextRemaining  As String
+    Dim CurrentLetter  As String
+    Dim PreviousLetter As String '''''''''''''''''''''Dimension some strings
+    Dim LowerCase      As String
+    Dim i              As Long
+    i = 1
+    TextRemaining = cText ''''''''''''''''''''''''''''Initialize remaining text
+    TextLength = Len(TextRemaining) '''''''''''''''''''''''Initialize Text
+    CurrentLetter = "" ''''''''''''''''''''''''''''''''''Initialize the first letter to nothing
+    PreviousLetter = ""
+    LowerCase = ""
+    vk = Keys.None_
+    Dim ret As Long
+    Dim b As Boolean
     Do
-        On Error GoTo abort
-        If apiPeekMessage(cMsg, 0, 0, 0, PM_REMOVE) = 0 Then Exit Do
-        Call apiTranslateMessage(cMsg)
-        Call apiDispatchMessage(cMsg)
+        PreviousLetter = CurrentLetter ''''''''''''''''''''''Set previous letter to the current before setting the current
+        CurrentLetter = Left(TextRemaining, 1) ''''''''''''''Set current letter to the left most
+        LowerCase = CurrentLetter '''''''''''''''''''''''Initialize lower case letter
+        TextRemaining = Mid(TextRemaining, 2) ''''''''''''Cut string to get remaining text
+        vk = apiVkKeyScan(Asc(CurrentLetter)) And 255 '''Set keyscan of that letter
+        Call apiCharLower(LowerCase)  '''''''''''''''''Convert in place to lowercase
+        If CurrentLetter <> LowerCase Or CurrentLetter = "!" Or CurrentLetter = "@" Or CurrentLetter = "&" Or CurrentLetter = "*" Or CurrentLetter = "_" Or CurrentLetter = "|" Or CurrentLetter = ":" Or CurrentLetter = "<" Or CurrentLetter = ">" Or CurrentLetter = "?" Then
+            Call apikeybd_event(Keys.ShiftKey_, 0, KEYEVENTF_KEYDOWN, -11)
+        End If
+        ret = apikeybd_event(vk, 0, KEYEVENTF_KEYDOWN, -11)
+        Call apikeybd_event(vk, 0, KEYEVENTF_KEYUP, -11)
+        If CurrentLetter <> LowerCase Or CurrentLetter = "!" Or CurrentLetter = "@" Or CurrentLetter = "&" Or CurrentLetter = "*" Or CurrentLetter = "_" Or CurrentLetter = "|" Or CurrentLetter = ":" Or CurrentLetter = "<" Or CurrentLetter = ">" Or CurrentLetter = "?" Then
+            Call apikeybd_event(Keys.ShiftKey_, 0, KEYEVENTF_KEYUP, -11)
+        End If
+        If ret <> 0 Then kSent = kSent + 1 '''''''''''Count the sent keys send down
+        If i >= TextLength Then Exit Do
         i = i + 1
-        If i = 400 Then Exit Do 'Let's not hang for to long, just in case, we exit at upper limit
     Loop
-abort:
-    DoEvents_ = i
-End Function 'returns the number of dispatched messages before finding an empty queue
+    Send = kSent
+End Function
+Friend Sub Flush()
+    On Error Resume Next
+    If apiGetInputState <> 0 Then DoEvents
+End Sub
+Friend Function SendKey(ByVal vk As Keys, Optional ByVal down As Boolean = True, Optional ByVal up As Boolean = True) As Boolean
+    On Error Resume Next
+    If down = True Then SendKey = CBool(apikeybd_event(vk, 0, KEYEVENTF_KEYDOWN, -11))
+    If up = True Then SendKey = CBool(apikeybd_event(vk, 0, KEYEVENTF_KEYUP, -11))
+End Function
+'        If CurrentLetter <> LowerCase Then
+'            Call apikeybd_event(Keys.ShiftKey_, 0, KEYEVENTF_KEYDOWN, -11)
+'        ElseIf CurrentLetter = "!" Or CurrentLetter = "@" Or CurrentLetter = "&" Or CurrentLetter = "*" Or CurrentLetter = "_" Or CurrentLetter = "|" Or CurrentLetter = ":" Or CurrentLetter = "<" Or CurrentLetter = ">" Or CurrentLetter = "?" Then
+'            Call apikeybd_event(Keys.ShiftKey_, 0, KEYEVENTF_KEYDOWN, -11) 'Or CurrentLetter = " "
+'        ElseIf CurrentLetter = "~" Then '''''''''''''''''If letter is tilde
+'            vk = 13 ''''''''''''''''''''''''''''''Set to return(enter) key
+'        ElseIf CurrentLetter = "+" Then '''''''''''''''''If letter is plus
+'            vk = 0 '''''''''''''''''''''''''''''''Do not send a regular key
+'            Call apikeybd_event(Keys.ShiftKey_, 0, KEYEVENTF_KEYDOWN, -11)
+'        ElseIf CurrentLetter = "^" Then '''''''''''''''''If letter is caret
+'            vk = 0 '''''''''''''''''''''''''''''''Do not send a regular key
+'            Call apikeybd_event(Keys.ControlKey_, 0, KEYEVENTF_KEYDOWN, -11)
+'        ElseIf CurrentLetter = "#" Then '''''''''''''''''If letter is number signifier
+'            vk = 0 '''''''''''''''''''''''''''''''Do not send a regular key
+'            Call apikeybd_event(Keys.LWin_, 0, KEYEVENTF_KEYDOWN, -11)
+'        ElseIf CurrentLetter = "%" Then '''''''''''''''''If letter is percent
+'            vk = 0 '''''''''''''''''''''''''''''''Do not send a regular key
+'            Call apikeybd_event(Keys.Menu_, 0, KEYEVENTF_KEYDOWN, -11)
+'        ElseIf CurrentLetter = "(" Then '''''''''''''''''If letter is left parenthesis
+'            vk = 0 '''''''''''''''''''''''''''''''Do not send a regular key
+'        ElseIf CurrentLetter = ")" Then '''''''''''''''''If letter is right parenthesis
+'            vk = 0 '''''''''''''''''''''''''''''''Do not send a regular key
+'            Call Lift ''''''''''''''''''''''''''''Lift extented keys
+'        ElseIf CurrentLetter = "{" Then '''''''''''''''''''''If letter is a command bracket
+'            vk = 0 '''''''''''''''''''''''''''''''Set virtual key to zero(none)
+'            cmdKey = Mid(TextRemaining, 1, InStr(1, TextRemaining, "}") - 1) 'Get text within command brackets
+'            frmNameSpacesVB6.txtOutput.Text = frmNameSpacesVB6.txtOutput.Text & " " & cmdKey & vbCrLf
+'            '
+'            If Len(TextRemaining) - (Len(cmdKey) + 1) > 0 Then
+'                TextRemaining = Mid(TextRemaining, InStr(1, TextRemaining, "}") + 1) ' 'Set remaining text, as the text(if any) to the right of the command bracket
+'            End If
+'            frmNameSpacesVB6.txtOutput.Text = frmNameSpacesVB6.txtOutput.Text & " " & TextRemaining & vbCrLf
+'            '
+'            i2 = i2 + Len(cmdKey) + 1  ''''''''''''''Increment i the number of characters within command brackets since they are not going to be processed individually
+'            '
+'            If InStr(1, cmdKey, " ") <> 0 And InStr(1, cmdKey, ", ") = 0 Then 'If there is a space and no comma preceeding it then the command is to be repeated
+'                If IsNumeric(Mid(cmdKey, InStr(1, cmdKey, " ") + 1)) Then
+'                    repeat = CInt(Mid(cmdKey, InStr(1, cmdKey, " ") + 1)) 'If a number can be identified, then set it otherwise it stays 1._+{}|:"<>?
+'                End If
+'                cmdKey = Left(cmdKey, InStr(1, cmdKey, " ") - 1) 'Strip off left side, which is the actual command
+'            End If
+'            frmNameSpacesVB6.txtOutput.Text = frmNameSpacesVB6.txtOutput.Text & " " & cmdKey & vbCrLf
+'            If Len(cmdKey) = 1 Then ''''''''''''''If command is a single character
+'                If cmdKey = "#" Or cmdKey = "+" Or cmdKey = "^" Or cmdKey = "%" Or cmdKey = "~" Or cmdKey = "(" Or cmdKey = ")" Or cmdKey = "[" Or cmdKey = "]" Then
+'                    Call apikeybd_event(Keys.ShiftKey_, 0, KEYEVENTF_KEYDOWN, -11)
+'                End If
+'                vk = apiVkKeyScan(Asc(cmdKey)) And 255 'Set keyscan for that letter
+'            Else '''''''''''''''''''''''''''''''''If command is a key name
+'                vk = NEGATIVE ''''''''''''''''''''Set to negative in case this is not a valid key command, then it's a simple string
+'                apiCharLower (cmdKey)
+'                vk = GetKeyCodeFromName(cmdKey)
+'            End If
+'            Call apikeybd_event(vk, 0, KEYEVENTF_KEYDOWN, -11)
+'            Call apikeybd_event(vk, 0, KEYEVENTF_KEYUP, -11)
+'            frmNameSpacesVB6.txtOutput.Text = frmNameSpacesVB6.txtOutput.Text & " " & vk & " " & repeat & vbCrLf
+'        Else
+'            '
+'        End If
+'        'Lift extended keys
+'        If CurrentLetter <> LowerCase Then
+'            Call apikeybd_event(Keys.ShiftKey_, 0, KEYEVENTF_KEYUP, -11)
+'        ElseIf CurrentLetter = "!" Or CurrentLetter = "@" Or CurrentLetter = " " Or CurrentLetter = "&" Or CurrentLetter = "*" Or CurrentLetter = "_" Or CurrentLetter = "|" Or CurrentLetter = ":" Or CurrentLetter = "<" Or CurrentLetter = ">" Or CurrentLetter = "?" Then
+'            Call apikeybd_event(Keys.ShiftKey_, 0, KEYEVENTF_KEYUP, -11)
+'        ElseIf upp = 1 And (cmdKey = "#" Or cmdKey = "+" Or cmdKey = "^" Or cmdKey = "%" Or cmdKey = "~" Or cmdKey = "(" Or cmdKey = ")" Or cmdKey = "[" Or cmdKey = "]") Then
+'            Call apikeybd_event(Keys.ShiftKey_, 0, KEYEVENTF_KEYUP, -11)
+'        ElseIf CurrentLetter <> "(" Then ''''''''''''''''''''If character is not parenthesis
+'            If PreviousLetter = "#" Then '''''''''''''If previous letter was numeric signifier
+'                Call apikeybd_event(Keys.LWin_, 0, KEYEVENTF_KEYUP, -11)
+'            ElseIf PreviousLetter = "+" Then '''''''''If previous letter was shift
+'                Call apikeybd_event(Keys.ShiftKey_, 0, KEYEVENTF_KEYUP, -11)
+'            ElseIf PreviousLetter = "%" Then '''''''''If previous letter was percent
+'                Call apikeybd_event(Keys.Menu_, 0, KEYEVENTF_KEYUP, -11)
+'            ElseIf PreviousLetter = "^" Then '''''''''If previous letter was caret
+'                Call apikeybd_event(Keys.ControlKey_, 0, KEYEVENTF_KEYUP, -11)
+'            End If
+'        End If
+
+'Private Function GetKeyCodeFromName(ByVal cmdKey As String) As Keys
+'    Dim vk As Keys
+'    If cmdKey = "none" Then ''''''''''Set virtual key to specification
+'        vk = None_
+'    ElseIf cmdKey = "lbutton" Then
+'        vk = LButton_
+'    ElseIf cmdKey = "rbutton" Then
+'        vk = RButton_
+'    ElseIf cmdKey = "cancel" Then
+'        vk = Cancel_
+'    ElseIf cmdKey = "mbutton" Then
+'        vk = MButton_
+'    ElseIf cmdKey = "xbutton1" Then
+'        vk = XButton1_
+'    ElseIf cmdKey = "xbutton2" Then
+'        vk = XButton2_
+'    ElseIf cmdKey = "lbutton, xbutton2" Then
+'        vk = LButton_XButton2_
+'    ElseIf cmdKey = "back" Or cmdKey = "backspace" Or cmdKey = "bs" Or cmdKey = "bksp" Then
+'        vk = Back_
+'    ElseIf cmdKey = "tab" Then
+'        vk = Tab_
+'    ElseIf cmdKey = "linefeed" Then
+'        vk = LineFeed_
+'    ElseIf cmdKey = "lbutton, linefeed" Then
+'        vk = LButton_LineFeed_
+'    ElseIf cmdKey = "clear" Then
+'        vk = Clear_
+'    ElseIf cmdKey = "return" Or cmdKey = "enter" Then
+'        vk = Return_
+'    ElseIf cmdKey = "rbutton, clear" Then
+'        vk = RButton_Clear_
+'    ElseIf cmdKey = "rbutton, return" Then
+'        vk = RButton_Return_
+'    ElseIf cmdKey = "shiftkey" Or cmdKey = "shift" Then
+'        vk = ShiftKey_
+'    ElseIf cmdKey = "controlkey" Or cmdKey = "control" Then
+'        vk = ControlKey_
+'    ElseIf cmdKey = "menu" Or cmdKey = "alt" Then
+'        vk = Menu_
+'    ElseIf cmdKey = "pause" Or cmdKey = "break" Then
+'        vk = Pause_
+'    ElseIf cmdKey = "capital" Or cmdKey = "capslock" Then
+'        vk = Capital_
+'    ElseIf cmdKey = "kanamode" Then
+'        vk = KanaMode_
+'    ElseIf cmdKey = "rbutton, capital" Then
+'        vk = RButton_Capital_
+'    ElseIf cmdKey = "junjamode" Then
+'        vk = JunjaMode_
+'    ElseIf cmdKey = "finalmode" Then
+'        vk = FinalMode_
+'    ElseIf cmdKey = "hanjamode" Then
+'        vk = HanjaMode_
+'    ElseIf cmdKey = "rbutton, finalmode" Then
+'        vk = RButton_FinalMode_
+'    ElseIf cmdKey = "escape" Or cmdKey = "esc" Then
+'        vk = Escape_
+'    ElseIf cmdKey = "imeconvert" Then
+'        vk = IMEConvert_
+'    ElseIf cmdKey = "imenonconvert" Then
+'        vk = IMENonconvert_
+'    ElseIf cmdKey = "imeaceept" Then
+'        vk = IMEAceept_
+'    ElseIf cmdKey = "imemodechange" Then
+'        vk = IMEModeChange_
+'    ElseIf cmdKey = "space" Then
+'        vk = Space_
+'    ElseIf cmdKey = "pageup" Or cmdKey = "pgup" Then
+'        vk = PageUp_
+'    ElseIf cmdKey = "next" Then
+'        vk = Next_
+'    ElseIf cmdKey = "end" Then
+'        vk = End_
+'    ElseIf cmdKey = "home" Then
+'        vk = Home_
+'    ElseIf cmdKey = "left" Then
+'        vk = Left_
+'    ElseIf cmdKey = "up" Then
+'        vk = Up_
+'    ElseIf cmdKey = "right" Then
+'        vk = Right_
+'    ElseIf cmdKey = "down" Then
+'        vk = Down_
+'    ElseIf cmdKey = "select" Then
+'        vk = Select_
+'    ElseIf cmdKey = "print" Then
+'        vk = Print_
+'    ElseIf cmdKey = "execute" Then
+'        vk = Execute_
+'    ElseIf cmdKey = "printscreen" Or cmdKey = "prtsc" Or cmdKey = "snapshot" Then
+'        vk = PrintScreen_
+'    ElseIf cmdKey = "Insert" Or cmdKey = "ins" Then
+'        vk = Insert_
+'    ElseIf cmdKey = "delete" Or cmdKey = "del" Then
+'        vk = Delete_
+'    ElseIf cmdKey = "help" Then
+'        vk = Help_
+'    ElseIf cmdKey = "d0" Then
+'        vk = D0_
+'    ElseIf cmdKey = "d1" Then
+'        vk = D1_
+'    ElseIf cmdKey = "d2" Then
+'        vk = D2_
+'    ElseIf cmdKey = "d3" Then
+'        vk = D3_
+'    ElseIf cmdKey = "d4" Then
+'        vk = D4_
+'    ElseIf cmdKey = "d5" Then
+'        vk = D5_
+'    ElseIf cmdKey = "d6" Then
+'        vk = D6_
+'    ElseIf cmdKey = "d7" Then
+'        vk = D7_
+'    ElseIf cmdKey = "d8" Then
+'        vk = D8_
+'    ElseIf cmdKey = "d9" Then
+'        vk = D9_
+'    ElseIf cmdKey = "rbutton, d8" Then
+'        vk = RButton_D8_
+'    ElseIf cmdKey = "rbutton, d9" Then
+'        vk = RButton_D9_
+'    ElseIf cmdKey = "mbutton, d8" Then
+'        vk = MButton_D8_
+'    ElseIf cmdKey = "mbutton, d9" Then
+'        vk = MButton_D9_
+'    ElseIf cmdKey = "xbutton2, d8" Then
+'        vk = XButton2_D8_
+'    ElseIf cmdKey = "xbutton2, d9" Then
+'        vk = XButton2_D9_
+'    ElseIf cmdKey = "64" Then
+'        vk = VK_64_
+'    ElseIf cmdKey = "a" Then
+'        vk = a_
+'    ElseIf cmdKey = "b" Then
+'        vk = b_
+'    ElseIf cmdKey = "c" Then
+'        vk = c_
+'    ElseIf cmdKey = "d" Then
+'        vk = d_
+'    ElseIf cmdKey = "e" Then
+'        vk = e_
+'    ElseIf cmdKey = "f" Then
+'        vk = f_
+'    ElseIf cmdKey = "g" Then
+'        vk = g_
+'    ElseIf cmdKey = "h" Then
+'        vk = h_
+'    ElseIf cmdKey = "i" Then
+'        vk = i_
+'    ElseIf cmdKey = "j" Then
+'        vk = J_
+'    ElseIf cmdKey = "k" Then
+'        vk = k_
+'    ElseIf cmdKey = "l" Then
+'        vk = l_
+'    ElseIf cmdKey = "m" Then
+'        vk = m_
+'    ElseIf cmdKey = "n" Then
+'        vk = n_
+'    ElseIf cmdKey = "o" Then
+'        vk = O_
+'    ElseIf cmdKey = "p" Then
+'        vk = p_
+'    ElseIf cmdKey = "q" Then
+'        vk = q_
+'    ElseIf cmdKey = "r" Then
+'        vk = r_
+'    ElseIf cmdKey = "s" Then
+'        vk = s_
+'    ElseIf cmdKey = "t" Then
+'        vk = t_
+'    ElseIf cmdKey = "u" Then
+'        vk = u_
+'    ElseIf cmdKey = "v" Then
+'        vk = v_
+'    ElseIf cmdKey = "w" Then
+'        vk = w_
+'    ElseIf cmdKey = "X" Then
+'        vk = x_
+'    ElseIf cmdKey = "Y" Then
+'        vk = y_
+'    ElseIf cmdKey = "z" Then
+'        vk = z_
+'    ElseIf cmdKey = "lwin" Then
+'        vk = LWin_
+'    ElseIf cmdKey = "rwin" Then
+'        vk = RWin_
+'    ElseIf cmdKey = "apps" Then
+'        vk = Apps_
+'    ElseIf cmdKey = "rbutton, rwin" Then
+'        vk = RButton_RWin_
+'    ElseIf cmdKey = "Sleep" Then
+'        vk = Sleep_
+'    ElseIf cmdKey = "numpad0" Then
+'        vk = NumPad0_
+'    ElseIf cmdKey = "numpad1" Then
+'        vk = NumPad1_
+'    ElseIf cmdKey = "numpad2" Then
+'        vk = NumPad2_
+'    ElseIf cmdKey = "numpad3" Then
+'        vk = NumPad3_
+'    ElseIf cmdKey = "numpad4" Then
+'        vk = NumPad4_
+'    ElseIf cmdKey = "numpad5" Then
+'        vk = NumPad5_
+'    ElseIf cmdKey = "numpad6" Then
+'        vk = NumPad6_
+'    ElseIf cmdKey = "numpad7" Then
+'        vk = NumPad7_
+'    ElseIf cmdKey = "numpad8" Then
+'        vk = NumPad8_
+'    ElseIf cmdKey = "numpad9" Then
+'        vk = NumPad9_
+'    ElseIf cmdKey = "multiply" Then
+'        vk = Multiply_
+'    ElseIf cmdKey = "add" Then
+'        vk = Add_
+'    ElseIf cmdKey = "separator" Then
+'        vk = Separator_
+'    ElseIf cmdKey = "subtract" Then
+'        vk = Subtract_
+'    ElseIf cmdKey = "decimal" Then
+'        vk = Decimal_
+'    ElseIf cmdKey = "divide" Then
+'        vk = Divide_
+'    ElseIf cmdKey = "f1" Then
+'        vk = F1_
+'    ElseIf cmdKey = "f2" Then
+'        vk = F2_
+'    ElseIf cmdKey = "f3" Then
+'        vk = F3_
+'    ElseIf cmdKey = "f4" Then
+'        vk = F4_
+'    ElseIf cmdKey = "f5" Then
+'        vk = F5_
+'    ElseIf cmdKey = "f6" Then
+'        vk = F6_
+'    ElseIf cmdKey = "f7" Then
+'        vk = F7_
+'    ElseIf cmdKey = "f8" Then
+'        vk = F8_
+'    ElseIf cmdKey = "f9" Then
+'        vk = F9_
+'    ElseIf cmdKey = "f10" Then
+'        vk = F10_
+'    ElseIf cmdKey = "f11" Then
+'        vk = F11_
+'    ElseIf cmdKey = "f12" Then
+'        vk = F12_
+'    ElseIf cmdKey = "f13" Then
+'        vk = F13_
+'    ElseIf cmdKey = "f14" Then
+'        vk = F14_
+'    ElseIf cmdKey = "f15" Then
+'        vk = F15_
+'    ElseIf cmdKey = "f16" Then
+'        vk = F16_
+'    ElseIf cmdKey = "f17" Then
+'        vk = F17_
+'    ElseIf cmdKey = "f18" Then
+'        vk = F18_
+'    ElseIf cmdKey = "f19" Then
+'        vk = F19_
+'    ElseIf cmdKey = "f20" Then
+'        vk = F20_
+'    ElseIf cmdKey = "f21" Then
+'        vk = F21_
+'    ElseIf cmdKey = "f22" Then
+'        vk = F22_
+'    ElseIf cmdKey = "f23" Then
+'        vk = F23_
+'    ElseIf cmdKey = "f24" Then
+'        vk = F24_
+'    ElseIf cmdKey = "back, f17" Then
+'        vk = Back_F17_
+'    ElseIf cmdKey = "back, f18" Then
+'        vk = Back_F18_
+'    ElseIf cmdKey = "back, f19" Then
+'        vk = Back_F19_
+'    ElseIf cmdKey = "back, f20" Then
+'        vk = Back_F20_
+'    ElseIf cmdKey = "back, f21" Then
+'        vk = Back_F21_
+'    ElseIf cmdKey = "back, f22" Then
+'        vk = Back_F22_
+'    ElseIf cmdKey = "back, f23" Then
+'        vk = Back_F23_
+'    ElseIf cmdKey = "back, f24" Then
+'        vk = Back_F24_
+'    ElseIf cmdKey = "numlock" Then
+'        vk = NumLock_
+'    ElseIf cmdKey = "scroll" Or cmdKey = "scrolllock" Then
+'        vk = Scroll_
+'    ElseIf cmdKey = "rbutton, numlock" Then
+'        vk = RButton_NumLock_
+'    ElseIf cmdKey = "rbutton, scroll" Then
+'        vk = RButton_Scroll_
+'    ElseIf cmdKey = "mbutton, numlock" Then
+'        vk = MButton_NumLock_
+'    ElseIf cmdKey = "mbutton, scroll" Then
+'        vk = MButton_Scroll_
+'    ElseIf cmdKey = "xbutton2, numlock" Then
+'        vk = XButton2_NumLock_
+'    ElseIf cmdKey = "xbutton2, scroll" Then
+'        vk = XButton2_Scroll_
+'    ElseIf cmdKey = "back, numlock" Then
+'        vk = Back_NumLock_
+'    ElseIf cmdKey = "back, scroll" Then
+'        vk = Back_Scroll_
+'    ElseIf cmdKey = "linefeed, numlock" Then
+'        vk = LineFeed_NumLock_
+'    ElseIf cmdKey = "linefeed, scroll" Then
+'        vk = LineFeed_Scroll_
+'    ElseIf cmdKey = "clear, numlock" Then
+'        vk = Clear_NumLock_
+'    ElseIf cmdKey = "clear, scroll" Then
+'        vk = Clear_Scroll_
+'    ElseIf cmdKey = "rbutton, clear, numlock" Then
+'        vk = RButton_Clear_NumLock_
+'    ElseIf cmdKey = "rbutton, clear, scroll" Then
+'        vk = RButton_Clear_Scroll_
+'    ElseIf cmdKey = "lshiftkey" Or cmdKey = "lshift" Then
+'        vk = LShiftKey_
+'    ElseIf cmdKey = "rshiftkey" Or cmdKey = "rshift" Then
+'        vk = RShiftKey_
+'    ElseIf cmdKey = "lcontrolkey" Or cmdKey = "lcontrol" Then
+'        vk = LControlKey_
+'    ElseIf cmdKey = "rcontrolkey" Or cmdKey = "rcontrol" Then
+'        vk = RControlKey_
+'    ElseIf cmdKey = "lmenu" Then
+'        vk = LMenu_
+'    ElseIf cmdKey = "rmenu" Then
+'        vk = RMenu_
+'    ElseIf cmdKey = "browserback" Then
+'        vk = BrowserBack_
+'    ElseIf cmdKey = "browserforward" Then
+'        vk = BrowserForward_
+'    ElseIf cmdKey = "browserrefresh" Then
+'        vk = BrowserRefresh_
+'    ElseIf cmdKey = "browserstop" Then
+'        vk = BrowserStop_
+'    ElseIf cmdKey = "browsersearch" Then
+'        vk = BrowserSearch_
+'    ElseIf cmdKey = "browserfavorites" Then
+'        vk = BrowserFavorites_
+'    ElseIf cmdKey = "browserhome" Then
+'        vk = BrowserHome_
+'    ElseIf cmdKey = "volumemute" Then
+'        vk = VolumeMute_
+'    ElseIf cmdKey = "volumedown" Then
+'        vk = VolumeDown_
+'    ElseIf cmdKey = "volumeup" Then
+'        vk = VolumeUp_
+'    ElseIf cmdKey = "medianexttrack" Then
+'        vk = MediaNextTrack_
+'    ElseIf cmdKey = "mediaprevioustrack" Then
+'        vk = MediaPreviousTrack_
+'    ElseIf cmdKey = "mediastop" Then
+'        vk = MediaStop_
+'    ElseIf cmdKey = "mediaplaypause" Then
+'        vk = MediaPlayPause_
+'    ElseIf cmdKey = "launchmail" Then
+'        vk = LaunchMail_
+'    ElseIf cmdKey = "selectmedia" Then
+'        vk = SelectMedia_
+'    ElseIf cmdKey = "launchapplication1" Then
+'        vk = LaunchApplication1_
+'    ElseIf cmdKey = "launchapplication2" Then
+'        vk = LaunchApplication2_
+'    ElseIf cmdKey = "back, medianexttrack" Then
+'        vk = Back_MediaNextTrack_
+'    ElseIf cmdKey = "back, mediaprevioustrack" Then
+'        vk = Back_MediaPreviousTrack_
+'    ElseIf cmdKey = "oem1" Then
+'        vk = Oem1_
+'    ElseIf cmdKey = "oemplus" Then
+'        vk = Oemplus_
+'    ElseIf cmdKey = "oemcomma" Then
+'        vk = Oemcomma_
+'    ElseIf cmdKey = "oemminus" Then
+'        vk = OemMinus_
+'    ElseIf cmdKey = "oemperiod" Then
+'        vk = OemPeriod_
+'    ElseIf cmdKey = "oemquestion" Then
+'        vk = OemQuestion_
+'    ElseIf cmdKey = "oemtilde" Then
+'        vk = Oemtilde_
+'    ElseIf cmdKey = "lbutton, oemtilde" Then
+'        vk = LButton_Oemtilde_
+'    ElseIf cmdKey = "rbutton, oemtilde" Then
+'        vk = RButton_Oemtilde_
+'    ElseIf cmdKey = "cancel, oemtilde" Then
+'        vk = Cancel_Oemtilde_
+'    ElseIf cmdKey = "mbutton, oemtilde" Then
+'        vk = MButton_Oemtilde_
+'    ElseIf cmdKey = "xbutton1, oemtilde" Then
+'        vk = XButton1_Oemtilde_
+'    ElseIf cmdKey = "xbutton2, oemtilde" Then
+'        vk = XButton2_Oemtilde_
+'    ElseIf cmdKey = "lbutton, xbutton2, oemtilde" Then
+'        vk = LButton_XButton2_Oemtilde_
+'    ElseIf cmdKey = "back, oemtilde" Then
+'        vk = Back_Oemtilde_
+'    ElseIf cmdKey = "tab, oemtilde" Then
+'        vk = Tab_Oemtilde_
+'    ElseIf cmdKey = "linefeed, oemtilde" Then
+'        vk = LineFeed_Oemtilde_
+'    ElseIf cmdKey = "lbutton, linefeed, oemtilde" Then
+'        vk = LButton_LineFeed_Oemtilde_
+'    ElseIf cmdKey = "clear, oemtilde" Then
+'        vk = Clear_Oemtilde_
+'    ElseIf cmdKey = "return, oemtilde" Then
+'        vk = Return_Oemtilde_
+'    ElseIf cmdKey = "rbutton, clear, oemtilde" Then
+'        vk = RButton_Clear_Oemtilde_
+'    ElseIf cmdKey = "rbutton, return, oemtilde" Then
+'        vk = RButton_Return_Oemtilde_
+'    ElseIf cmdKey = "shiftkey, oemtilde" Then
+'        vk = ShiftKey_Oemtilde_
+'    ElseIf cmdKey = "controlkey, oemtilde" Then
+'        vk = ControlKey_Oemtilde_
+'    ElseIf cmdKey = "menu, oemtilde" Then
+'        vk = Menu_Oemtilde_
+'    ElseIf cmdKey = "pause, oemtilde" Then
+'        vk = Pause_Oemtilde_
+'    ElseIf cmdKey = "capital, oemtilde" Then
+'        vk = Capital_Oemtilde_
+'    ElseIf cmdKey = "kanamode, oemtilde" Then
+'        vk = KanaMode_Oemtilde_
+'    ElseIf cmdKey = "rbutton, capital, oemtilde" Then
+'        vk = RButton_Capital_Oemtilde_
+'    ElseIf cmdKey = "junjamode, oemtilde" Then
+'        vk = JunjaMode_Oemtilde_
+'    ElseIf cmdKey = "finalmode, oemtilde" Then
+'        vk = FinalMode_Oemtilde_
+'    ElseIf cmdKey = "hanjamode, oemtilde" Then
+'        vk = HanjaMode_Oemtilde_
+'    ElseIf cmdKey = "rbutton, finalmode, oemtilde" Then
+'        vk = RButton_FinalMode_Oemtilde_
+'    ElseIf cmdKey = "oemopenbrackets" Then
+'        vk = OemOpenBrackets_
+'    ElseIf cmdKey = "oem5" Then
+'        vk = Oem5_
+'    ElseIf cmdKey = "oem6" Then
+'        vk = Oem6_
+'    ElseIf cmdKey = "oem7" Then
+'        vk = Oem7_
+'    ElseIf cmdKey = "oem8" Then
+'        vk = Oem8_
+'    ElseIf cmdKey = "space, oemtilde" Then
+'        vk = Space_Oemtilde_
+'    ElseIf cmdKey = "pageup, oemtilde" Then
+'        vk = PageUp_Oemtilde_
+'    ElseIf cmdKey = "oembackslash" Then
+'        vk = OemBackslash_
+'    ElseIf cmdKey = "lbutton, oembackslash" Then
+'        vk = LButton_OemBackslash_
+'    ElseIf cmdKey = "home, oemtilde" Then
+'        vk = Home_Oemtilde_
+'    ElseIf cmdKey = "processkey" Then
+'        vk = ProcessKey_
+'    ElseIf cmdKey = "mbutton, oembackslash" Then
+'        vk = MButton_OemBackslash_
+'    ElseIf cmdKey = "packet" Then
+'        vk = Packet_
+'    ElseIf cmdKey = "down, oemtilde" Then
+'        vk = Down_Oemtilde_
+'    ElseIf cmdKey = "select, oemtilde" Then
+'        vk = Select_Oemtilde_
+'    ElseIf cmdKey = "back, oembackslash" Then
+'        vk = Back_OemBackslash_
+'    ElseIf cmdKey = "tab, oembackslash" Then
+'        vk = Tab_OemBackslash_
+'    ElseIf cmdKey = "printscreen, oemtilde" Then
+'        vk = PrintScreen_Oemtilde_
+'    ElseIf cmdKey = "back, processkey" Then
+'        vk = Back_ProcessKey_
+'    ElseIf cmdKey = "clear, oembackslash" Then
+'        vk = Clear_OemBackslash_
+'    ElseIf cmdKey = "back, packet" Then
+'        vk = Back_Packet_
+'    ElseIf cmdKey = "d0, oemtilde" Then
+'        vk = D0_Oemtilde_
+'    ElseIf cmdKey = "d1, oemtilde" Then
+'        vk = D1_Oemtilde_
+'    ElseIf cmdKey = "shiftkey, oembackslash" Then
+'        vk = ShiftKey_OemBackslash_
+'    ElseIf cmdKey = "controlkey, oembackslash" Then
+'        vk = ControlKey_OemBackslash_
+'    ElseIf cmdKey = "d4, oemtilde" Then
+'        vk = D4_Oemtilde_
+'    ElseIf cmdKey = "shiftkey, processkey" Then
+'        vk = ShiftKey_ProcessKey_
+'    ElseIf cmdKey = "attn" Then
+'        vk = Attn_
+'    ElseIf cmdKey = "crsel" Then
+'        vk = Crsel_
+'    ElseIf cmdKey = "exsel" Then
+'        vk = Exsel_
+'    ElseIf cmdKey = "eraseeof" Then
+'        vk = EraseEof_
+'    ElseIf cmdKey = "play" Then
+'        vk = Play_
+'    ElseIf cmdKey = "zoom" Then
+'        vk = Zoom_
+'    ElseIf cmdKey = "noname" Then
+'        vk = NoName_
+'    ElseIf cmdKey = "pa1" Then
+'        vk = Pa1_
+'    ElseIf cmdKey = "oemclear" Then
+'        vk = OemClear_
+'    ElseIf cmdKey = "lbutton, oemclear" Then
+'        vk = LButton_OemClear_
+'    End If
+'    GetKeyCodeFromName = vk
+''End Function
+'Private Function Lift() As Boolean
+'    On Error Resume Next
+'    Call apikeybd_event(Keys.ControlKey_, 0, KEYEVENTF_KEYUP, -11)
+'    Call apikeybd_event(Keys.LControlKey_, 0, KEYEVENTF_KEYUP, -11)
+'    Call apikeybd_event(Keys.RControlKey_, 0, KEYEVENTF_KEYUP, -11)
+'    Call apikeybd_event(Keys.ShiftKey_, 0, KEYEVENTF_KEYUP, -11)
+'    Call apikeybd_event(Keys.LShiftKey_, 0, KEYEVENTF_KEYUP, -11)
+'    Call apikeybd_event(Keys.RShiftKey_, 0, KEYEVENTF_KEYUP, -11)
+'    Call apikeybd_event(Keys.Menu_, 0, KEYEVENTF_KEYUP, -11)
+'    Call apikeybd_event(Keys.LMenu_, 0, KEYEVENTF_KEYUP, -11)
+'    Call apikeybd_event(Keys.RMenu_, 0, KEYEVENTF_KEYUP, -11)
+'    Lift = True
+'End Function
+

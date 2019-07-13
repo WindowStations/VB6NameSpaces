@@ -1,17 +1,37 @@
 VERSION 1.0 CLASS
 BEGIN
-  MultiUse = -1  'True
-  Persistable = 0  'NotPersistable
-  DataBindingBehavior = 0  'vbNone
-  DataSourceBehavior  = 0  'vbNone
-  MTSTransactionMode  = 0  'NotAnMTSObject
+   MultiUse = -1
+   Persistable = 0
+   DataBindingBehavior = 0
+   DataSourceBehavior = 0
+   MTSTransactionMode = 0
 END
 Attribute VB_Name = "Timers"
 Attribute VB_GlobalNameSpace = False
 Attribute VB_Creatable = True
 Attribute VB_PredeclaredId = False
 Attribute VB_Exposed = False
+
+
 Option Explicit
+
+'VERSION 1.0 CLASS
+'BEGIN
+'  MultiUse = -1  'True
+'  Persistable = 0  'NotPersistable
+'  DataBindingBehavior = 0  'vbNone
+'  DataSourceBehavior  = 0  'vbNone
+'  MTSTransactionMode  = 0  'NotAnMTSObject
+'END
+'Attribute VB_Name = "Timers"
+'Attribute VB_GlobalNameSpace = False
+'Attribute VB_Creatable = True
+'Attribute VB_PredeclaredId = False
+'Attribute VB_Exposed = False
+'Attribute VB_Ext_KEY = "SavedWithClassBuilder6" ,"Yes"
+'Attribute VB_Ext_KEY = "Member0" ,"Timer"
+'Attribute VB_Ext_KEY = "Top_Level" ,"Yes"
+'Option Explicit
 Public Event TimerEvent(ByVal Index As Integer)
 Private mCount    As Integer
 Private mCol      As New Collection
@@ -30,13 +50,12 @@ Private Sub Class_Terminate()
     Set mCol = Nothing
     CTimersCol.Remove "key:" & mClassKey
 End Sub
-Public Property Get Timer() As Timer
+Friend Property Get Timer() As Timer
     Set Timer = mvarTimer
 End Property
-Public Property Set Timer(vData As Timer)
+Friend Property Set Timer(vData As Timer)
     Set mvarTimer = vData
 End Property
-
 Property Get Count() As Integer
     Count = mCount
 End Property
@@ -65,6 +84,4 @@ End Function
 Friend Function RaiseTimer_Event(ByVal Index As Integer)
     RaiseEvent TimerEvent(Index)
 End Function
-
-
 

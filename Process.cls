@@ -1,17 +1,36 @@
 VERSION 1.0 CLASS
 BEGIN
-  MultiUse = -1  'True
-  Persistable = 0  'NotPersistable
-  DataBindingBehavior = 0  'vbNone
-  DataSourceBehavior  = 0  'vbNone
-  MTSTransactionMode  = 0  'NotAnMTSObject
+   MultiUse = -1
+   Persistable = 0
+   DataBindingBehavior = 0
+   DataSourceBehavior = 0
+   MTSTransactionMode = 0
 END
 Attribute VB_Name = "Process"
 Attribute VB_GlobalNameSpace = False
 Attribute VB_Creatable = True
 Attribute VB_PredeclaredId = False
 Attribute VB_Exposed = False
+
+
 Option Explicit
+
+'VERSION 1.0 CLASS
+'BEGIN
+'  MultiUse = -1  'True
+'  Persistable = 0  'NotPersistable
+'  DataBindingBehavior = 0  'vbNone
+'  DataSourceBehavior  = 0  'vbNone
+'  MTSTransactionMode  = 0  'NotAnMTSObject
+'END
+'Attribute VB_Name = "Process"
+'Attribute VB_GlobalNameSpace = False
+'Attribute VB_Creatable = True
+'Attribute VB_PredeclaredId = False
+'Attribute VB_Exposed = False
+'Attribute VB_Ext_KEY = "SavedWithClassBuilder6" ,"Yes"
+'Attribute VB_Ext_KEY = "Top_Level" ,"Yes"
+'Option Explicit
 Private Const ANYSIZE_ARRAY             As Long = 1
 Private Const DESKTOP_WINSTATION0       As String = "WinSta0"
 Private Const DESKTOP_LOGON             As String = "Winlogon"
@@ -98,7 +117,7 @@ Private Type PROCESSENTRY32
     szexeFile As String * MAX_PATH
 End Type
 Private Type WTS_PROCESS_INFO
-    SessionID As Long
+    SessionId As Long
     ProcessID As Long
     pProcessName As Long
     pUserSid As Long
@@ -145,8 +164,8 @@ Private Type FILETIME
     dwHighDateTime As Long
 End Type
 Private Declare Function apiCloseHandle Lib "kernel32" Alias "CloseHandle" (ByVal hObject As Long) As Long
-Private Declare Sub apiCopyMemoryWTSLONG Lib "kernel32" Alias "RtlMoveMemory" (ByRef Destination As WTS_PROCESS_INFO, ByRef source As Long, ByVal length As Long)
-Private Declare Sub apiCopyMemoryBYTELONG Lib "kernel32" Alias "RtlMoveMemory" (ByRef Destination As Byte, ByRef source As Long, ByVal length As Long)
+Private Declare Sub apiCopyMemoryWTSLONG Lib "kernel32" Alias "RtlMoveMemory" (ByRef Destination As WTS_PROCESS_INFO, ByRef source As Long, ByVal Length As Long)
+Private Declare Sub apiCopyMemoryBYTELONG Lib "kernel32" Alias "RtlMoveMemory" (ByRef Destination As Byte, ByRef source As Long, ByVal Length As Long)
 Private Declare Function apiCreateToolhelpSnapshot Lib "kernel32" Alias "CreateToolhelp32Snapshot" (ByVal lFlags As Long, ByRef lProcessID As Long) As Long
 Private Declare Function apiCreateProcess Lib "kernel32" Alias "CreateProcessW" (ByVal lpApplicationName As Long, ByVal lpCommandLine As Long, ByRef lpProcessAttributes As Long, ByRef lpThreadAttributes As Long, ByVal bInheritHandles As Long, ByVal dwCreationFlags As Long, ByRef lpEnvironment As Long, ByVal lpCurrentDirectory As Long, ByRef lpStartupInfo As STARTUPINFOW, ByRef lpProcessInformation As PROCESS_INFORMATION) As Long
 Private Declare Sub apisExitProcess Lib "kernel32" Alias "ExitProcess" (ByVal uExitCode As Long)
@@ -169,24 +188,18 @@ Private Declare Function apiWaitForInputIdle Lib "user32" Alias "WaitForInputIdl
 Private Declare Function apiWaitForSingleObject Lib "kernel32" Alias "WaitForSingleObject" (ByVal hHandle As Long, ByVal dwMilliseconds As Long) As Long
 Private Declare Function apiAdjustTokenPrivileges Lib "advapi32" Alias "AdjustTokenPrivileges" (ByVal tokenhandle As Long, ByVal DisableAllPrivileges As Long, ByRef NewState As TOKEN_PRIVILEGES, ByVal BufferLength As Long, ByRef PreviousState As TOKEN_PRIVILEGES, ByRef ReturnLength As Long) As Long
 Private Declare Function apiLookupPrivilegeValue Lib "advapi32" Alias "LookupPrivilegeValueA" (ByVal lpSystemName As String, ByVal lpName As String, ByRef lpLuid As LUID) As Long
-Private Declare Function apiLookupAccountSid Lib "advapi32" Alias "LookupAccountSidA" (ByVal lpSystemName As String, ByVal Sid As Long, ByVal name As String, ByRef cbName As Long, ByVal ReferencedDomainName As String, ByRef cbReferencedDomainName As Long, ByRef peUse As Integer) As Long
+Private Declare Function apiLookupAccountSid Lib "advapi32" Alias "LookupAccountSidA" (ByVal lpSystemName As String, ByVal Sid As Long, ByVal Name As String, ByRef cbName As Long, ByVal ReferencedDomainName As String, ByRef cbReferencedDomainName As Long, ByRef peUse As Integer) As Long
 Private Declare Function apiOpenProcessToken Lib "advapi32" Alias "OpenProcessToken" (ByVal ProcessHandle As Long, ByVal desiredAccess As Long, ByRef tokenhandle As Long) As Long
 Private Declare Function apiFindWindow Lib "user32" Alias "FindWindowA" (ByVal lpClassName As String, ByVal lpWindowName As String) As Long
 Private Declare Function apiGetWindowThreadProcessId Lib "user32" Alias "GetWindowThreadProcessId" (ByVal hwnd As Long, ByRef lpdwProcessId As Long) As Long
-Private Declare Function apiWTSEnumerateProcesses Lib "wtsapi32" Alias "WTSEnumerateProcessesA" (ByVal hServer As Long, ByVal Reserved As Long, ByVal Version As Long, ByRef ppProcessInfo As Long, ByRef pCount As Long) As Long
-Private Declare Sub apiWTSFreeMemory Lib "wtsapi32" Alias "WTSFreeMemory" (ByVal pMemory As Long)
+Private Declare Function apiWTSEnumerateProcesses Lib "Wtsapi32" Alias "WTSEnumerateProcessesA" (ByVal hServer As Long, ByVal Reserved As Long, ByVal Version As Long, ByRef ppProcessInfo As Long, ByRef pCount As Long) As Long
+Private Declare Sub apiWTSFreeMemory Lib "Wtsapi32" Alias "WTSFreeMemory" (ByVal pMemory As Long)
 Private Declare Function apiShellExecuteEx Lib "shell32" Alias "ShellExecuteEx" (ByRef SEI As SHELLEXECUTEINFO) As Boolean
 Private Declare Function apiGetCommandLine Lib "kernel32" Alias "GetCommandLineA" () As String
 Private Declare Function apiCreateProcessWithLogon Lib "advapi32" Alias "CreateProcessWithLogonW" (ByVal lpUserName As Long, ByVal lpDomain As Long, ByVal lpPassword As Long, ByVal dwLogonFlags As Long, ByVal lpApplicationName As Long, ByVal lpCommandLine As Long, ByVal dwCreationFlags As Long, ByVal lpEnvironment As Long, ByVal lpCurrentDirectory As Long, ByRef lpStartupInfo As STARTUPINFO, ByRef lpProcessInfo As PROCESS_INFORMATION) As Long
 Private Declare Function apiCreateProcessAsUser Lib "advapi32" Alias "CreateProcessAsUserA" (ByVal hToken As Long, ByVal lpApplicationName As Long, ByVal lpCommandLine As String, ByVal lpProcessAttributes As Long, ByVal lpThreadAttributes As Long, ByVal bInheritHandles As Long, ByVal dwCreationFlags As Long, ByVal lpEnvironment As Long, ByVal lpCurrentDirectory As String, ByRef lpStartupInfo As STARTUPINFO, ByRef lpProcessInformation As PROCESS_INFORMATION) As Long
 Private Declare Function apiLogonUser Lib "advapi32" Alias "LogonUserA" (ByVal lpszUsername As String, ByVal lpszDomain As String, ByVal lpszPassword As String, ByVal dwLogonType As Long, ByVal dwLogonProvider As Long, ByRef phToken As Long) As Long
-Private mvarProcessName As String
-Private mvarId As Long
-Private mvarHandle As Long
-Private mvarMainWindowTitle As String
-Private mvarMainWindowHandle As Long
-Private mvarUserName As String
-Private mvarSessionID As Long
+Private Declare Function apiQueryFullProcessImageName Lib "kernel32" Alias "QueryFullProcessImageNameA" (ByVal hProcess As Long, ByVal dwFlags As Long, ByVal lpExeName As String, ByRef lpdwSize As Long) As Long
 Private Enum ProcessPriorityClass
     NORMALPRIORITY = &H20
     IDLE = &H40
@@ -195,62 +208,82 @@ Private Enum ProcessPriorityClass
     ABOVENORMAL = 32768
     BELOWNORMAL = 16384
 End Enum
-Public Property Let ProcessName(ByVal vData As String)
+Private mvarProcessName      As String
+Private mvarId               As Long
+Private mvarHandle           As Long
+Private mvarMainWindowTitle  As String
+Private mvarMainWindowHandle As Long
+Private mvarUserName         As String
+Private mvarSessionID        As Long
+Private mvarStartInfo        As ProcessStartInfo
+Friend Property Set StartInfo(ByVal vData As ProcessStartInfo)
+    Set mvarStartInfo = vData
+End Property
+Friend Property Get StartInfo() As ProcessStartInfo
+    Set StartInfo = mvarStartInfo
+End Property
+Friend Property Let ProcessName(ByVal vData As String)
     mvarProcessName = vData
 End Property
-Public Property Get ProcessName() As String
+Friend Property Get ProcessName() As String
     ProcessName = mvarProcessName
 End Property
-Public Property Let Id(ByVal vData As Long)
+Friend Property Let Id(ByVal vData As Long)
     mvarId = vData
 End Property
-Public Property Get Id() As Long
+Friend Property Get Id() As Long
     Id = mvarId
 End Property
-Public Property Get Handle() As Long
+Friend Property Get Handle() As Long
     Handle = mvarHandle
 End Property
-Public Property Let Handle(ByVal vData As Long)
+Friend Property Let Handle(ByVal vData As Long)
     mvarHandle = vData
 End Property
-Public Property Let MainWindowTitle(ByVal vData As String)
+Friend Property Let MainWindowTitle(ByVal vData As String)
     mvarMainWindowTitle = vData
 End Property
-Public Property Get MainWindowTitle() As String
+Friend Property Get MainWindowTitle() As String
     MainWindowTitle = mvarMainWindowTitle
 End Property
-Public Property Let MainWindowHandle(ByVal vData As Long)
+Friend Property Let MainWindowHandle(ByVal vData As Long)
     mvarMainWindowHandle = vData
 End Property
-Public Property Get MainWindowHandle() As Long
+Friend Property Get MainWindowHandle() As Long
     MainWindowHandle = mvarMainWindowHandle
 End Property
-Public Property Let UserName(ByVal vData As String)
+Friend Property Let UserName(ByVal vData As String)
     mvarUserName = vData
 End Property
-Public Property Get UserName() As String
+Friend Property Get UserName() As String
     UserName = mvarUserName
 End Property
-Public Property Get SessionID() As Long
-    SessionID = mvarSessionID
+Friend Property Get SessionId() As Long
+    SessionId = mvarSessionID
 End Property
-Public Property Let SessionID(ByVal vData As Long)
+Friend Property Let SessionId(ByVal vData As Long)
     mvarSessionID = vData
 End Property
-
-Friend Function Start(ByVal FileName As String, Optional ByVal arguments As String) As Long
+Friend Function Start(Optional ByVal FileName As String = "", Optional ByVal Arguments As String = "") As Long
     On Error Resume Next
+    If FileName <> "" Then
+       With StartInfo
+         .FileName = FileName
+         .Arguments = Arguments
+         .WorkingDirectory = vbNullChar
+       End With
+    End If
     Dim SEI As SHELLEXECUTEINFO
     Dim r   As Boolean
     With SEI
         .cbSize = Len(SEI)
-        .fMask = SEE_MASK_NOCLOSEPROCESS  ' SEE_MASK_NOCLOSEPROCESS Or SEE_MASK_INVOKEIDLIST Or SEE_MASK_FLAG_NO_UI
+        .fMask = SEE_MASK_NOCLOSEPROCESS ' SEE_MASK_NOCLOSEPROCESS Or SEE_MASK_INVOKEIDLIST Or SEE_MASK_FLAG_NO_UI
         .hwnd = 0
-        .lpVerb = ""
-        .lpFile = FileName
-        .lpParameters = arguments
-        .lpDirectory = vbNullChar
-        .nShow = 1
+        .lpVerb = StartInfo.Verb
+        .lpFile = StartInfo.FileName
+        .lpParameters = Arguments
+        .lpDirectory = StartInfo.WorkingDirectory 'vbNullChar
+        .nShow = Math.Abs(CLng(Not StartInfo.CreateNoWindow))
         .hInstApp = 0
         .lpIDList = 0
     End With
@@ -258,7 +291,57 @@ Friend Function Start(ByVal FileName As String, Optional ByVal arguments As Stri
     If r = False Then Exit Function
     Start = apiGetProcessId(SEI.hProcess)
 End Function
-
+'Private Sub cmdStart_Click()
+''    txtFilePath.Text = "C:\Windows\Notepad.exe"
+''    txtUser.Text = "Owner"
+''    txtPassword.Text = " "
+'  Call StartProcessLoggedAs(txtFilePath.Text, txtUser.Text, txtPassword.Text)
+'End Sub
+Friend Function StartAs(ByVal fPath As String, ByVal User As String, ByVal Password As String) As Long
+    On Error Resume Next
+    Dim StartInfo          As STARTUPINFO
+    Dim ProcessInfo        As PROCESS_INFORMATION
+    Dim lpDomain           As String
+    Dim lpCommandLine      As String
+    Dim lpCurrentDirectory As String
+    Dim lpUserName         As String
+    Dim lpPassword         As String
+    lpUserName = User
+    lpDomain = ""
+    lpPassword = Password
+    lpCommandLine = vbNullString
+    lpCurrentDirectory = vbNullString
+    StartInfo.cb = LenB(StartInfo)
+    StartInfo.dwFlags = 0
+    StartAs = apiCreateProcessWithLogon(StrPtr(User), StrPtr(lpDomain), StrPtr(Password), LOGON_WITH_PROFILE, StrPtr(fPath), StrPtr(lpCommandLine), CREATE_DEFAULT_ERROR_MODE Or CREATE_NEW_CONSOLE Or CREATE_NEW_PROCESS_GROUP, ByVal 0, StrPtr(lpCurrentDirectory), StartInfo, ProcessInfo)
+    Call apiCloseHandle(ProcessInfo.hThread)
+    Call apiCloseHandle(ProcessInfo.hProcess)
+End Function
+Friend Function RunAsUser(ByVal UserName As String, ByVal Password As String, ByVal DomainName As String, ByVal CommandLine As String, ByVal CurrentDirectory As String) As Long
+    Dim ret    As Long
+    Dim hToken As Long
+    Dim si     As STARTUPINFO
+    Dim pi     As PROCESS_INFORMATION
+    ret = apiLogonUser(UserName, DomainName, Password, LOGON32_LOGON_INTERACTIVE, LOGON32_PROVIDER_DEFAULT, hToken)
+    If ret = 0 Then
+        RunAsUser = Err.LastDllError ' 1314 error code, if the user associatedy does not have "Act as part of the operating system" permission
+        MsgBox "LogonUser() failed with error " & Err.LastDllError, vbExclamation
+        Exit Function
+    End If
+    si.cb = Len(si)
+    ret = apiCreateProcessAsUser(hToken, 0, CommandLine, 0, 0, False, CREATE_DEFAULT_ERROR_MODE, 0, CurrentDirectory, si, pi)
+    If ret = 0 Then
+        RunAsUser = Err.LastDllError
+        ' 1314 error code, if the user does not have permissions   "Replace a process level token" and "Increase Quotoas"
+        MsgBox "CreateProcessAsUser() failed with error " & Err.LastDllError, vbExclamation
+        apiCloseHandle hToken
+        Exit Function
+    End If
+    apiCloseHandle hToken
+    apiCloseHandle pi.hThread
+    apiCloseHandle pi.hProcess
+    RunAsUser = 0
+End Function
 Friend Function WaitForExit(ByVal phandle As Long, ByVal dwMilliseconds As Long) As Long
     On Error Resume Next
     Call apiWaitForSingleObject(phandle, 0)
@@ -269,7 +352,7 @@ Friend Function WaitForExit(ByVal phandle As Long, ByVal dwMilliseconds As Long)
     Call apiCloseHandle(phandle)
 End Function
 Friend Function WaitForInputIdle(ByVal phandle As Long, ByVal dwMilliseconds As Long) As Boolean
-    On Error GoTo poop:
+    On Error GoTo poop
     Call apiWaitForInputIdle(phandle, 0) 'avoid lockout bug with infinite time parameter and invalid process handle
     WaitForInputIdle = CBool(apiWaitForInputIdle(phandle, dwMilliseconds))
 poop:
@@ -289,18 +372,18 @@ Friend Function GetProcesses() As Process()
         Do
             On Error GoTo skip
             Call apiCopyMemoryWTSLONG(udtProcessInfo, ByVal src, LenB(udtProcessInfo))
-            Dim pname As String
-            If udtProcessInfo.ProcessID = 0 Then pname = "System Idle Process"
-            If udtProcessInfo.ProcessID <> 0 Then pname = GetStringFromLP(udtProcessInfo.pProcessName)
+            Dim pName As String
+            If udtProcessInfo.ProcessID = 0 Then pName = "System Idle Process"
+            If udtProcessInfo.ProcessID <> 0 Then pName = GetStringFromLP(udtProcessInfo.pProcessName)
             ReDim Preserve p(i)
             Dim proc As New Process
-            proc.ProcessName = pname
+            proc.ProcessName = pName
             proc.Id = udtProcessInfo.ProcessID
             proc.Handle = 0
             proc.MainWindowHandle = 0 '() = mwh
             proc.MainWindowTitle = "" '() = mwt
             proc.UserName = GetUserName(udtProcessInfo.pUserSid)
-            proc.SessionID = udtProcessInfo.SessionID
+            proc.SessionId = udtProcessInfo.SessionId
             Set p(i) = proc
             Set proc = Nothing
             i = i + 1
@@ -312,15 +395,15 @@ skip:
     Call apiWTSFreeMemory(buff)
     GetProcesses = p
 End Function
-Friend Function GetProcessesByName(ByVal name As String) As Process()
+Friend Function GetProcessesByName(ByVal Name As String) As Process()
     On Error Resume Next
     Dim p() As Process
     GetProcessesByName = p
     Dim ret  As Long
     Dim cnt  As Long
     Dim buff As Long
-    name = Trim(LCase(name))
-    If Right(name, 4) = ".exe" Then name = Left(name, Len(name) - 4)
+    Name = Trim(LCase(Name))
+    If Right(Name, 4) = ".exe" Then Name = Left(Name, Len(Name) - 4)
     ret = apiWTSEnumerateProcesses(WTS_CURRENT_SERVER_HANDLE, 0, 1, buff, cnt)
     If ret <> 0 Then
         Dim udtProcessInfo As WTS_PROCESS_INFO
@@ -331,18 +414,18 @@ Friend Function GetProcessesByName(ByVal name As String) As Process()
         Do
             On Error GoTo skip
             Call apiCopyMemoryWTSLONG(udtProcessInfo, ByVal src, LenB(udtProcessInfo))
-            Dim pname As String
-            If udtProcessInfo.ProcessID = 0 Then pname = "System Idle Process"
-            If udtProcessInfo.ProcessID <> 0 Then pname = GetStringFromLP(udtProcessInfo.pProcessName)
-            If pname = name Then
+            Dim pName As String
+            If udtProcessInfo.ProcessID = 0 Then pName = "System Idle Process"
+            If udtProcessInfo.ProcessID <> 0 Then pName = GetStringFromLP(udtProcessInfo.pProcessName)
+            If pName = Name Then
                 ReDim Preserve p(n)
-                p(n).ProcessName = pname
+                p(n).ProcessName = pName
                 p(n).Id = udtProcessInfo.ProcessID
                 p(n).Handle = 0
                 p(n).MainWindowHandle = 0 '() = mwh
                 p(n).MainWindowTitle = "" '() = mwt
                 p(n).UserName = GetUserName(udtProcessInfo.pUserSid)
-                p(n).SessionID = udtProcessInfo.SessionID
+                p(n).SessionId = udtProcessInfo.SessionId
                 n = n + 1
             End If
             i = i + 1
@@ -371,16 +454,16 @@ Friend Function GetProcessById(ByVal pid As Long) As Process
             On Error GoTo skip
             Call apiCopyMemoryWTSLONG(udtProcessInfo, ByVal src, LenB(udtProcessInfo))
             If udtProcessInfo.ProcessID = pid Then
-                Dim pname As String
-                If udtProcessInfo.ProcessID = 0 Then pname = "System Idle Process"
-                If udtProcessInfo.ProcessID <> 0 Then pname = GetStringFromLP(udtProcessInfo.pProcessName)
-                p.ProcessName = pname
+                Dim pName As String
+                If udtProcessInfo.ProcessID = 0 Then pName = "System Idle Process"
+                If udtProcessInfo.ProcessID <> 0 Then pName = GetStringFromLP(udtProcessInfo.pProcessName)
+                p.ProcessName = pName
                 p.Id = udtProcessInfo.ProcessID
                 p.Handle = 0
                 p.MainWindowHandle = 0 '() = mwh
                 p.MainWindowTitle = "" '() = mwt
                 p.UserName = GetUserName(udtProcessInfo.pUserSid)
-                p.SessionID = udtProcessInfo.SessionID
+                p.SessionId = udtProcessInfo.SessionId
                 Exit Do
             End If
             i = i + 1
@@ -427,25 +510,25 @@ Friend Function Kill_ByHWND(ByVal hwnd As Long) As Long
     Call apiCloseHandle(hProcess)
     Kill_ByHWND = ExitCode
 End Function
-Friend Sub Kill_All(ByVal name As String)
+Friend Sub Kill_All(ByVal Name As String)
     On Error Resume Next
-    name = Trim(LCase(name))
-    If Right(name, 4) = ".exe" Then name = Left(name, Len(name) - 4)
+    Name = Trim(LCase(Name))
+    If Right(Name, 4) = ".exe" Then Name = Left(Name, Len(Name) - 4)
     If AdjustToken = 0 Then Exit Sub ' we aquire the right to adjust the token to kill, or abort
     Dim p() As Process
-    p = GetProcessesByName(name)
-    Call TerminateProcesses(p, Trim(LCase(name))) 'kill all matching process by pid
+    p = GetProcessesByName(Name)
+    Call TerminateProcesses(p, Trim(LCase(Name))) 'kill all matching process by pid
 End Sub
-Private Function TerminateProcesses(ByRef p() As Process, ByVal pname As String) As Long()
+Private Function TerminateProcesses(ByRef p() As Process, ByVal pName As String) As Long()
     Dim exits() As Long
-    If Trim(pname) = "" Then Exit Function
-    pname = Trim(LCase(pname))
-    If Right(pname, 4) = ".exe" Then pname = Left(pname, Len(pname) - 4)
+    If Trim(pName) = "" Then Exit Function
+    pName = Trim(LCase(pName))
+    If Right(pName, 4) = ".exe" Then pName = Left(pName, Len(pName) - 4)
     Dim i As Integer: i = 0
     Dim n As Integer: n = 0
     For i = 0 To UBound(p) ' loop through arrays
         On Error GoTo skipFor
-        If pname = p(i).ProcessName Then
+        If pName = p(i).ProcessName Then
             Dim hProcess As Long
             hProcess = apiOpenProcess(PROCESS_TERMINATE, 0, p(i).Id) 'Open the process to kill
             If hProcess <> 0 Then
@@ -462,12 +545,12 @@ skipTerminate:
 skipFor:
     Next i
 End Function
-Friend Function GetProcessIDs(ByVal pname As String) As Long()
+Friend Function GetProcessIDs(ByVal pName As String) As Long()
     On Error Resume Next
     Dim pIDs() As Long
     GetProcessIDs = pIDs
-    pname = Trim(LCase(pname))
-    If Right(pname, 4) = ".exe" Then pname = Left(pname, Len(pname) - 4)
+    pName = Trim(LCase(pName))
+    If Right(pName, 4) = ".exe" Then pName = Left(pName, Len(pName) - 4)
     Dim ret  As Long
     Dim cnt  As Long
     Dim buff As Long
@@ -484,7 +567,7 @@ Friend Function GetProcessIDs(ByVal pname As String) As Long()
             Call apiCopyMemoryWTSLONG(udtProcessInfo, ByVal p, LenB(udtProcessInfo))
             If udtProcessInfo.ProcessID <> 0 Then
                 tmpname = GetStringFromLP(udtProcessInfo.pProcessName)
-                If LCase(tmpname) = LCase(pname) Then
+                If LCase(tmpname) = LCase(pName) Then
                     ReDim Preserve pIDs(n)
                     pIDs(n) = udtProcessInfo.ProcessID
                     n = n + 1
@@ -517,16 +600,16 @@ Friend Function GetPriorityClass(Optional ByVal hProcess As Long) As ProcessPrio
     If hProcess = 0 Then hProcess = apiGetCurrentProcess
     GetPriorityClass = (apiGetPriorityClass(hProcess))
 End Function
-Friend Function SetProcessAffinityByName(ByVal pname As String, Optional ByVal one As Boolean, Optional ByVal two As Boolean, Optional ByVal three As Boolean, Optional ByVal four As Boolean, Optional ByVal five As Boolean, Optional ByVal six As Boolean, Optional ByVal seven As Boolean, Optional ByVal eight As Boolean) As Long
+Friend Function SetProcessAffinityByName(ByVal pName As String, Optional ByVal one As Boolean, Optional ByVal two As Boolean, Optional ByVal three As Boolean, Optional ByVal four As Boolean, Optional ByVal five As Boolean, Optional ByVal six As Boolean, Optional ByVal seven As Boolean, Optional ByVal eight As Boolean) As Long
     On Error Resume Next
     Const AffinityMask As Long = &HF
     Dim BitMasks()     As Long
     Dim mask           As Long
     Dim hProcess       As Long
     Dim pIDs()         As Long
-    pname = Trim(LCase(pname))
-    If Right(pname, 4) = ".exe" Then pname = Left(pname, Len(pname) - 4)
-    pIDs = GetProcessIDs(pname)
+    pName = Trim(LCase(pName))
+    If Right(pName, 4) = ".exe" Then pName = Left(pName, Len(pName) - 4)
+    pIDs = GetProcessIDs(pName)
     Dim pid As Variant
     For Each pid In pIDs
         On Error GoTo skipFor
@@ -600,6 +683,21 @@ Friend Function GetProcessAffinityByHWND(ByVal hwnd As String) As Long
         GetProcessAffinityByHWND = mask
         Call apiCloseHandle(hProcess)
     End If
+End Function
+Friend Function GetProcessImageName(ByVal pid As Long) As String
+    On Error Resume Next
+    Dim hProcess As Long
+    hProcess = apiOpenProcess(PROCESS_QUERY_INFORMATION, 0, pid)
+    If hProcess <> 0 Then
+        Dim buff As String
+        Dim ch   As Long
+        buff = String(MAX_PATH, Chr(0))
+        ch = MAX_PATH
+        Call apiQueryFullProcessImageName(hProcess, 0, buff, ch)
+        buff = Left(buff, ch)
+        Call apiCloseHandle(hProcess)
+    End If
+    GetProcessImageName = buff
 End Function
 Private Function GetUserName(Sid As Long) As String
     On Error Resume Next
@@ -680,158 +778,144 @@ Private Function AdjustToken() As Long
     Dim tokenprivilege    As TOKEN_PRIVILEGES
     Dim newtokenprivilege As TOKEN_PRIVILEGES
     Dim buff              As Long
+    On Error GoTo poop
     Call apiLookupPrivilegeValue("", SE_DEBUG_NAME, tLuid)
     tokenprivilege.PrivilegeCount = 1
     tokenprivilege.TheLuid = tLuid
     tokenprivilege.Attributes = SE_PRIVILEGE_ENABLED
-    On Error GoTo poop
     Call apiOpenProcessToken(cProcess, TOKEN_ADJUST_PRIVILEGES Or TOKEN_QUERY, tokenhandle)
-    On Error Resume Next
     AdjustToken = apiAdjustTokenPrivileges(tokenhandle, False, tokenprivilege, Len(newtokenprivilege), newtokenprivilege, buff) 'If  Err.LastDllError = ERROR_NOT_ALL_ASSIGNED Then
-    Call apiCloseHandle(cProcess)
 poop:
+    Call apiCloseHandle(cProcess)
 End Function
-
-Friend Function GetProcessById2(ByVal pid As Long) As Process
-    On Error Resume Next
-    Dim p As Process
-    GetProcessById2 = p
-    Dim hSnap As Long
-    hSnap = apiCreateToolhelpSnapshot(TH32CS_SNAPPROCESS, 0)  'now take a snapshot of the processes
-    If hSnap = 0 Then Exit Function
-    Dim pEntry As PROCESSENTRY32
-    pEntry.dwSize = Len(pEntry)
-    Dim x As Long
-    x = apiProcessFirst(hSnap, pEntry) 'starting with the first process, ie [system]
-    Dim i As Long
-    i = -1
-    Do
-        On Error GoTo skipdo
-        If x = 0 Then Exit Do
-        i = i + 1
-        If pEntry.th32ProcessID = pid Then
-            p.ProcessName = LCase(Replace(Left(pEntry.szexeFile, InStr(pEntry.szexeFile, Chr(0))), Chr(0), ""))  'magic line to strip outer buffer
-            p.Id = pEntry.th32ProcessID
-            p.Handle = 0
-            p.MainWindowHandle = ""
-            p.MainWindowTitle = ""
-            Exit Do
-        End If
-        x = apiProcessNext(hSnap, pEntry)
-skipdo:
-    Loop
-    GetProcessById2 = p
-End Function
-Friend Function GetProcesses2() As Process()
-    On Error Resume Next
-    Dim p() As Process
-    GetProcesses2 = p
-    Dim hSnap As Long
-    hSnap = apiCreateToolhelpSnapshot(TH32CS_SNAPPROCESS, 0)
-    If hSnap = 0 Then Exit Function
-    Dim pEntry As PROCESSENTRY32
-    pEntry.dwSize = Len(pEntry)
-    Dim x As Long
-    x = apiProcessFirst(hSnap, pEntry)
-    Dim i As Long
-    i = -1
-    Do
-        On Error GoTo skipdo
-        If x = 0 Then Exit Do
-        i = i + 1
-        ReDim Preserve p(i)
-        p(i).ProcessName = LCase(Replace(Left(pEntry.szexeFile, InStr(pEntry.szexeFile, Chr(0))), Chr(0), ""))  'magic line to strip outer buffer
-        p(i).Id = pEntry.th32ProcessID
-        p(i).Handle = 0
-        p(i).MainWindowHandle = ""
-        p(i).MainWindowTitle = ""
-        x = apiProcessNext(hSnap, pEntry)
-skipdo:
-    Loop
-    GetProcesses2 = p
-End Function
-Friend Function GetProcessesByName2(ByVal name As String) As Process()
-    On Error Resume Next
-    Dim p() As Process
-    GetProcessesByName2 = p
-    Dim hSnap As Long
-    hSnap = apiCreateToolhelpSnapshot(TH32CS_SNAPPROCESS, 0)
-    If hSnap = 0 Then Exit Function
-    Dim pEntry As PROCESSENTRY32
-    pEntry.dwSize = Len(pEntry)
-    Dim x As Long
-    x = apiProcessFirst(hSnap, pEntry)
-    Dim i As Long
-    i = -1
-    Dim upper As Long
-    Do
-        On Error GoTo skipdo
-        If x = 0 Then Exit Do
-        i = i + 1
-        Dim pname As String
-        pname = LCase(Replace(Left(pEntry.szexeFile, InStr(pEntry.szexeFile, Chr(0))), Chr(0), "")) 'magic line to strip outer buffer
-        If pname = name Then
-            ReDim Preserve p(i)
-            p(i).ProcessName = pname
-            p(i).Id = pEntry.th32ProcessID
-            p(i).Handle = 0
-             p(i).MainWindowHandle = ""
-             p(i).MainWindowTitle = ""
-        End If
-        x = apiProcessNext(hSnap, pEntry)
-skipdo:
-    Loop
-    GetProcessesByName2 = p
-End Function
-Friend Sub Kill_All2(ByVal name As String)
-    On Error Resume Next
-    If AdjustToken = 0 Then Exit Sub ' we aquire the right to adjust the token to kill, or abort
-    Dim p() As Process
-    p = GetProcessesByName2(Trim(LCase(name)))
-    Call TerminateProcesses(p, Trim(LCase(name)))  'kill all matching process by pid
-End Sub
-'Friend Function StartAs(ByVal fPath As String, ByVal User As String, ByVal Password As String) As Long
+'
+'
+'
+'Public Function ProcessKillWMI(ByVal name As String)
+'    Dim PROCESS As Object
+'    For Each PROCESS In GetObject("winmgmts:").ExecQuery("select name from Win32_Process where name='" & name & ".exe'")
+'        PROCESS.Terminate (0)
+'    Next
+'End Function
+'Function ArrayString(ParamArray tokens()) As String()
+'    ReDim arr(UBound(tokens)) As String
+'    Dim i As Long
+'    For i = 0 To UBound(tokens)
+'        arr(i) = tokens(i)
+'    Next
+'    ArrayString = arr
+'End Function
+'Public Function GetProcessById2(ByVal pid As Long) As PROCESS
 '    On Error Resume Next
-'    Dim StartInfo          As STARTUPINFO
-'    Dim ProcessInfo        As PROCESS_INFORMATION
-'    Dim lpDomain           As String
-'    Dim lpCommandLine      As String
-'    Dim lpCurrentDirectory As String
-'    Dim lpUserName         As String
-'    Dim lpPassword         As String
-'    lpUserName = User
-'    lpDomain = ""
-'    lpPassword = Password
-'    lpCommandLine = vbNullString
-'    lpCurrentDirectory = vbNullString
-'    StartInfo.cb = LenB(StartInfo)
-'    StartInfo.dwFlags = 0
-'    StartAs = apiCreateProcessWithLogon(StrPtr(User), StrPtr(lpDomain), StrPtr(Password), LOGON_WITH_PROFILE, StrPtr(fPath), StrPtr(lpCommandLine), CREATE_DEFAULT_ERROR_MODE Or CREATE_NEW_CONSOLE Or CREATE_NEW_PROCESS_GROUP, ByVal 0, StrPtr(lpCurrentDirectory), StartInfo, ProcessInfo)
-'    Call apiCloseHandle(ProcessInfo.hThread)
-'    Call apiCloseHandle(ProcessInfo.hProcess)
+'    Dim p As PROCESS
+'    GetProcessById2 = p
+'    Dim hSnap As Long
+'    hSnap = apiCreateToolhelpSnapshot(TH32CS_SNAPPROCESS, 0)  'now take a snapshot of the processes
+'    If hSnap = 0 Then Exit Function
+'    Dim pEntry As PROCESSENTRY32
+'    pEntry.dwSize = Len(pEntry)
+'    Dim x As Long
+'    x = apiProcessFirst(hSnap, pEntry) 'starting with the first process, ie [system]
+'    Dim i As Long
+'    i = -1
+'    Do
+'        On Error GoTo skipdo
+'        If x = 0 Then Exit Do
+'        i = i + 1
+'        If pEntry.th32ProcessID = pid Then
+'            p.ProcessName = LCase(Replace(Left(pEntry.szexeFile, InStr(pEntry.szexeFile, Chr(0))), Chr(0), ""))  'magic line to strip outer buffer
+'            p.id = pEntry.th32ProcessID
+'            p.HANDLE = 0
+'            p.MainWindowHandle() = mwh
+'            p.MainWindowTitle() = mwt
+'            Exit Do
+'        End If
+'        x = apiProcessNext(hSnap, pEntry)
+'skipdo:
+'    Loop
+'    GetProcessById2 = p
 'End Function
-'Friend Function RunAsUser(ByVal UserName As String, ByVal Password As String, ByVal DomainName As String, ByVal CommandLine As String, ByVal CurrentDirectory As String) As Long
-'    Dim ret As Long
-'    Dim hToken As Long
-'    Dim si     As STARTUPINFO
-'    Dim pi     As PROCESS_INFORMATION
-'    ret = apiLogonUser(UserName, DomainName, Password, LOGON32_LOGON_INTERACTIVE, LOGON32_PROVIDER_DEFAULT, hToken)
-'    If ret = 0 Then
-'        RunAsUser = Err.LastDllError ' 1314 error code, if the user associatedy does not have "Act as part of the operating system" permission
-'        MsgBox "LogonUser() failed with error " & Err.LastDllError, vbExclamation
-'        Exit Function
-'    End If
-'    si.cb = Len(si)
-'    ret = apiCreateProcessAsUser(hToken, 0, CommandLine, 0, 0, False, CREATE_DEFAULT_ERROR_MODE, 0, CurrentDirectory, si, pi)
-'    If ret = 0 Then
-'        RunAsUser = Err.LastDllError
-'        ' 1314 error code, if the user does not have permissions   "Replace a process level token" and "Increase Quotoas"
-'        MsgBox "CreateProcessAsUser() failed with error " & Err.LastDllError, vbExclamation
-'        apiCloseHandle hToken
-'        Exit Function
-'    End If
-'    apiCloseHandle hToken
-'    apiCloseHandle pi.hThread
-'    apiCloseHandle pi.hProcess
-'    RunAsUser = 0
+'Private Function GetProcesses2() As PROCESS()
+'    On Error Resume Next
+'    Dim p() As PROCESS
+'    GetProcesses2 = p
+'    Dim hSnap As Long
+'    hSnap = apiCreateToolhelpSnapshot(TH32CS_SNAPPROCESS, 0)
+'    If hSnap = 0 Then Exit Function
+'    Dim pEntry As PROCESSENTRY32
+'    pEntry.dwSize = Len(pEntry)
+'    Dim x As Long
+'    x = apiProcessFirst(hSnap, pEntry)
+'    Dim i As Long
+'    i = -1
+'    Do
+'        On Error GoTo skipdo
+'        If x = 0 Then Exit Do
+'        i = i + 1
+'        ReDim Preserve p(i)
+'        p(i).ProcessName = LCase(Replace(Left(pEntry.szexeFile, InStr(pEntry.szexeFile, Chr(0))), Chr(0), ""))  'magic line to strip outer buffer
+'        p(i).id = pEntry.th32ProcessID
+'        p(i).HANDLE = 0
+'        p(i).MainWindowHandle() = mwh
+'        p(i).MainWindowTitle() = mwt
+'        x = apiProcessNext(hSnap, pEntry)
+'skipdo:
+'    Loop
+'    GetProcesses2 = p
 'End Function
+'Public Function GetProcessesByName2(ByVal name As String) As PROCESS()
+'    On Error Resume Next
+'    Dim p() As PROCESS
+'    GetProcessesByName2 = p
+'    Dim hSnap As Long
+'    hSnap = apiCreateToolhelpSnapshot(TH32CS_SNAPPROCESS, 0)
+'    If hSnap = 0 Then Exit Function
+'    Dim pEntry As PROCESSENTRY32
+'    pEntry.dwSize = Len(pEntry)
+'    Dim x As Long
+'    x = apiProcessFirst(hSnap, pEntry)
+'    Dim i As Long
+'    i = -1
+'    Dim upper As Long
+'    Do
+'        On Error GoTo skipdo
+'        If x = 0 Then Exit Do
+'        i = i + 1
+'        Dim pname As String
+'        pname = LCase(Replace(Left(pEntry.szexeFile, InStr(pEntry.szexeFile, Chr(0))), Chr(0), "")) 'magic line to strip outer buffer
+'        If pname = name Then
+'            ReDim Preserve p(i)
+'            p(i).ProcessName = pname
+'            p(i).id = pEntry.th32ProcessID
+'            p(i).HANDLE = 0
+'             p(i).MainWindowHandle() = mwh
+'             p(i).MainWindowTitle() = mwt
+'        End If
+'        x = apiProcessNext(hSnap, pEntry)
+'skipdo:
+'    Loop
+'    GetProcessesByName2 = p
+'End Function
+'Public Sub Kill_All2(ByVal name As String)
+'    On Error Resume Next
+'    If AdjustToken = 0 Then Exit Sub ' we aquire the right to adjust the token to kill, or abort
+'    Dim p() As PROCESS
+'    p = GetProcessesByName2(Trim(LCase(name)))
+'    Call TerminateProcesses(p, Trim(LCase(name)))  'kill all matching process by pid
+'End Sub
+'
+'Public Function Start(ByVal FileName As String, ByVal arguments As String) As Long
+''    On Error Resume Next
+''    Dim psi   As STARTUPINFOW
+''    Dim pInfo As PROCESS_INFORMATION
+''    psi.cbSize = Len(psi)
+''    psi.lpTitle = StrPtr(DESKTOP_DEFAULT)
+''    psi.lpDesktop = StrPtr(DESKTOP_DEFAULT)
+''
+''    Dim cmd As String
+''    cmd = StrPtr(fileName & " " & arguments)
+''    Start = apiCreateProcess(StrPtr(fileName), StrPtr(cmd), ByVal 0, ByVal 0, 1, 0, ByVal 0, ByVal 0, psi, pInfo)
+''  'apiCloseHandle (pInfo.hprocess)
+''  'apiCloseHandle (pInfo.hThread)
+'End Function
+

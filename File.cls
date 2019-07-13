@@ -1,17 +1,36 @@
 VERSION 1.0 CLASS
 BEGIN
-  MultiUse = -1  'True
-  Persistable = 0  'NotPersistable
-  DataBindingBehavior = 0  'vbNone
-  DataSourceBehavior  = 0  'vbNone
-  MTSTransactionMode  = 0  'NotAnMTSObject
+   MultiUse = -1
+   Persistable = 0
+   DataBindingBehavior = 0
+   DataSourceBehavior = 0
+   MTSTransactionMode = 0
 END
 Attribute VB_Name = "File"
 Attribute VB_GlobalNameSpace = False
 Attribute VB_Creatable = True
 Attribute VB_PredeclaredId = False
 Attribute VB_Exposed = False
+
+
 Option Explicit
+
+'VERSION 1.0 CLASS
+'BEGIN
+'  MultiUse = -1  'True
+'  Persistable = 0  'NotPersistable
+'  DataBindingBehavior = 0  'vbNone
+'  DataSourceBehavior  = 0  'vbNone
+'  MTSTransactionMode  = 0  'NotAnMTSObject
+'END
+'Attribute VB_Name = "File"
+'Attribute VB_GlobalNameSpace = False
+'Attribute VB_Creatable = True
+'Attribute VB_PredeclaredId = False
+'Attribute VB_Exposed = False
+'Attribute VB_Ext_KEY = "SavedWithClassBuilder6" ,"Yes"
+'Attribute VB_Ext_KEY = "Top_Level" ,"Yes"
+'Option Explicit
 Private Const GENERIC_WRITE                         As Long = &H40000000
 Private Const OPEN_EXISTING                         As Long = 3
 Private Const OPEN_ALWAYS                           As Long = 4
@@ -55,23 +74,23 @@ Private Const PROGRESS_STOP                         As Long = 2
 Private Const SHERB_NOCONFIRMATION                  As Long = &H1
 Private Const SHERB_NOPROGRESSUI                    As Long = &H2
 Private Const SHERB_NOSOUND                         As Long = &H4
-Private Const E_ERR_BASE = 18160 + vbObjectError
+Private Const E_ERR_BASE  As Long = 18160 + vbObjectError
 Private Const S_ERR_CannotGetPath    As String = "Cannot get path"
 Private Const S_ERR_ComponentFailure As String = "CSpecialFolders component failure"
 Private Const MAX_LENGTH             As Long = 512
 Private Const INVALID_HANDLE_VALUE   As Long = -1
 Private Const E_ERR_BASE2 = 17420 + vbObjectError
-Private Const DRIVE_CDROM     As Long = 5 'A CD-ROM drive.
-Private Const DRIVE_FIXED     As Long = 3 'A hard drive.
-Private Const DRIVE_RAMDISK   As Long = 6 'A RAM disk.
-Private Const DRIVE_REMOTE    As Long = 4 'A network drive or a drive located on a network server.
-Private Const DRIVE_REMOVABLE As Long = 2 'A floppy drive or some other removable-disk drive.
-Private Const FILE_ATTRIBUTE_ARCHIVE  As Long = &H20 'An archive file (which most files are).
-Private Const FILE_ATTRIBUTE_COMPRESSED  As Long = &H800 'A file residing in a compressed drive or directory.
-Private Const FILE_ATTRIBUTE_DIRECTORY  As Long = &H10 'A directory instead of a file.
-Private Const FILE_ATTRIBUTE_HIDDEN  As Long = &H2 'A hidden file, not normally visible to the user.
-Private Const FILE_ATTRIBUTE_NORMAL  As Long = &H80 'An attribute-less file (cannot be combined with other attributes).
-Private Const FILE_ATTRIBUTE_READONLY  As Long = &H1 'A read-only file.
+Private Const DRIVE_CDROM     As Long = 5
+Private Const DRIVE_FIXED     As Long = 3
+Private Const DRIVE_RAMDISK   As Long = 6
+Private Const DRIVE_REMOTE    As Long = 4
+Private Const DRIVE_REMOVABLE As Long = 2
+Private Const FILE_ATTRIBUTE_ARCHIVE  As Long = &H20
+Private Const FILE_ATTRIBUTE_COMPRESSED  As Long = &H800
+Private Const FILE_ATTRIBUTE_DIRECTORY  As Long = &H10
+Private Const FILE_ATTRIBUTE_HIDDEN  As Long = &H2
+Private Const FILE_ATTRIBUTE_NORMAL  As Long = &H80
+Private Const FILE_ATTRIBUTE_READONLY  As Long = &H1
 Private Const FILE_ATTRIBUTE_SYSTEM  As Long = &H4
 Private Const FILE_BEGIN   As Long = 0
 Private Const FILE_CURRENT As Long = 1
@@ -97,7 +116,7 @@ End Type
 Private Type OVERLAPPED
     Internal As Long
     InternalHigh As Long
-    Offset As Long
+    offset As Long
     OffsetHigh As Long
     hEvent As Long
 End Type
@@ -157,48 +176,16 @@ Private Declare Function apiSetFilePointer Lib "kernel32" Alias "SetFilePointer"
 Private Declare Function apiSetFileTime Lib "kernel32" Alias "SetFileTime" (ByVal hFile As Long, ByRef lpCreationTime As FILETIME, ByRef lpLastAccessTime As FILETIME, ByRef lpLastWriteTime As FILETIME) As Long
 Private Declare Function apiSHFileOperation Lib "shell32" Alias "SHFileOperationA" (ByRef lpFileOp As SHFILEOPSTRUCT) As Long
 Private Declare Function apiWriteFile Lib "kernel32" Alias "WriteFile" (ByVal hFile As Long, ByRef lpBuffer As Any, ByVal nNumberOfBytesToWrite As Long, ByRef lpNumberOfBytesWritten As Long, ByRef lpOverlapped As OVERLAPPED) As Long
-Public Enum ESpecialFolder
-    eSpecialFolder_Programs = &H2
-    eSpecialFolder_Personal = &H5
-    eSpecialFolder_Favorites = &H6
-    eSpecialFolder_Startup = &H7
-    eSpecialFolder_Recent = &H8
-    eSpecialFolder_SendTo = &H9
-    eSpecialFolder_StartMenu = &HB
-    eSpecialFolder_DesktopDir = &H10
-    eSpecialFolder_Templates = &H15
-    eSpecialFolder_CommonStartMenu = &H16
-    eSpecialFolder_CommonPrograms = &H17
-    eSpecialFolder_CommonStartup = &H18
-    eSpecialFolder_CommonDesktopDir = &H19
-    eSpecialFolder_AppData = &H1A
-    eSpecialFolder_InternetCache = &H20
-    eSpecialFolder_Cookies = &H21
-    eSpecialFolder_History = &H22
-End Enum
-Public Enum EErrSpecialFolders
-    eErrSpecialFolders_CannotGetPath = E_ERR_BASE + 1
-    eErrSpecialFolders_ComponentFailure
-End Enum
-Public Enum EErrFile
-    eErrFile_NotInitialized = E_ERR_BASE2 + 1
-    eErrFile_InvalidFileName
-    eErrFile_FileNotFound
-    eErrFile_CopyFailed
-    eErrFile_MoveFailed
-    eErrFile_DeleteFailed
-    eErrFile_ComponentFailure
-End Enum
-Friend Function Exists(ByVal Path As String) As Boolean
+Friend Function Exists(ByVal path As String) As Boolean
     On Error Resume Next
-    Exists = CBool(apiPathFileExists(Path))
+    Exists = CBool(apiPathFileExists(path))
 End Function
-Friend Function Create(ByVal Path As String) As Long
+Friend Function Create(ByVal path As String) As Long
     On Error Resume Next
-    If apiPathFileExists(Path) <> 0 Then Return
-    Create = apiCreateFile(Path, GENERIC_WRITE, FILE_SHARE_READ Or FILE_SHARE_WRITE, ByVal 0, OPEN_ALWAYS, 0, 0) 'Open the file
+    If apiPathFileExists(path) <> 0 Then Return
+    Create = apiCreateFile(path, GENERIC_WRITE, FILE_SHARE_READ Or FILE_SHARE_WRITE, ByVal 0, OPEN_ALWAYS, 0, 0) 'Open the file
     If Create = 0 Then Exit Function
-    Call apiCloseHandle(Create) 'Close the file
+    Call apiCloseHandle(Create)
 End Function
 Friend Function Copy(ByVal pathsource As String, ByVal destSource As String) As Long
     On Error GoTo poop
@@ -207,13 +194,13 @@ Friend Function Copy(ByVal pathsource As String, ByVal destSource As String) As 
 poop:
     Call Copy_SH(pathsource, destSource)
 End Function
-Friend Function Delete(ByVal Path As String) As Long
+Friend Function Delete(ByVal path As String) As Long
     On Error GoTo poop
-    If apiPathFileExists(Path) = 0 Then Return
-    Delete = apiDeleteFile(Path)
+    If apiPathFileExists(path) = 0 Then Return
+    Delete = apiDeleteFile(path)
     Exit Function
 poop:
-    Call Delete_SH(Path)
+    Call Delete_SH(path)
 End Function
 Friend Function Move(ByVal pathsource As String, ByVal destSource As String) As Long
     On Error GoTo poop
@@ -280,3 +267,4 @@ Friend Function Rename_SH(ByVal pathsource As String, ByVal pathdestination As S
     Rename_SH = r
 poop:
 End Function
+
