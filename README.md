@@ -1,4 +1,4 @@
-# VB6NameSpaces
+# VB6NameSpaces - Still in BETA
 For back-porting .NET samples to VB6 by extending VB6 with .NET duplicates in nested classes like namespaces
 
 
