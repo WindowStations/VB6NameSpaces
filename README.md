@@ -12,7 +12,7 @@ The Screen class required a Rectangle class and a Point class to be made, like t
 More imports are planned of course. 
 Please contribute if you have any good API samples that will help duplicate .NET imports/namespaces.
 
-Alpha preview: https://vb6x.org/
+
 
 Advantages
 1. Compatibility. I would like to facilitate easier conversion/s between VB.NET and VB6.
