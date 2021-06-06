@@ -11,3 +11,4 @@ Known issues:
 * Control container ability is not included, ie DockStyle and Anchor properties are positioned relative to the UC, not the VB6 form.
 * Images are not saved/compiled with the .frx file.
 * Functions with overloads appear with _2 etc.  (update planned to include enums for function selection and optional parameters)
+* Opacity isn't working with lack of containers
