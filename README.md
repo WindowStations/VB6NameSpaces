@@ -11,4 +11,4 @@ Known issues:
 * Control container ability is not included, ie DockStyle and Anchor properties are positioned relative to the UC, not the VB6 form.
 * Images are not saved/compiled with the .frx file.
 * Functions with overloads appear with _2 etc.  (update planned to include enums for function selection and optional parameters)
-* Opacity - VB.NET are now available as the full object, however the current controls internally available are limited to simple tests only, ie Anchor, DockStyle can be tested on controls without an opacity property.
+* Opacity - VB.NET forms are now available as the full object, however the current controls internally available are limited to simple tests only, ie Anchor, DockStyle can be tested on controls without an opacity property.
