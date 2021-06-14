@@ -1,5 +1,5 @@
 # VB6NameSpaces - Still in BETA
-An single NET assembly now makes it possible to back-port VB.NET code to VB6 by interoperating with VB.NET UserControls and NameSpaces, instanced as nested class buckets.
+An single NET assembly now makes it possible to back-port VB.NET code to VB6 by interoperating with VB.NET UserControls and NameSpaces instanced as nested class buckets.
 This is still a work in progress, however significant strides have been made to fully support VB.NET controls/properties/events and Namespaces directly through advanced dynamic interop. Including, but not limited to: BakcgroundWorkers; Multi-Threading; FileSystemWatchers; and 64 bit support are now made available to VB6.
 
 * Step 1.  Download and unzip the VB project to the desired location.
@@ -11,4 +11,4 @@ Known issues:
 * Control container ability is not included, ie DockStyle and Anchor properties are positioned relative to the UC, not the VB6 form.
 * Images are not saved/compiled with the .frx file.
 * Functions with overloads appear with _2 etc.  (updates planned)
-* Opacity - VB.NET forms are now available as the full object, however the current controls internally available are limited to simple tests only, ie Anchor, DockStyle can be tested on controls without an opacity property.
+* Opacity - VB.NET forms are now available as a full object, however the current control set is limited to simple tests only, ie Anchor, DockStyle can be tested on controls without an opacity property.
