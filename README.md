@@ -12,7 +12,7 @@ Known issues:
 * Images are not saved/compiled with the .frx file.
 * Functions with overloads appear with _2 etc.  (updates planned)
 * Opacity - VB.NET forms are now available as a full object, however the current control set is limited to common controls that do not have an opacity property yet.
-* VBA properties are mistmatched at the imgage property and below.   The code broke with the latest set of property updates, so it will need to be dialed in again.
+* VBA object properties are mistmatched at the image property and below that.   The code broke with the latest set of property updates, so it will need to be dialed in again.
 
 Progress update:
 * All error warnings were resovled for obsolete functions.  All class errors due to missing/wrong-type properties/params were hooked up correctly.
