@@ -16,5 +16,5 @@ Known issues:
 
 Progress update:
 * All error warnings were resovled for obsolete functions.  All class errors due to missing/wrong-type properties/params were hooked up correctly.
-* A VB.NET form designer is almost complete.  Developers will be able to design VB.NET forms utilizing the existing control classes that don't have a visible UI.  Thus avoiding the limitation of the VBA/VB6 property windows.
-* Refinements have been made to begin the completion of the code base.  Individual constructors subs will have the same parameter order as their VB.NET counterparts.
+* A VB.NET form designer is coming along nicely.  Developers will be able to design VB.NET forms utilizing the existing control classes that don't have a visible UI.  Thus avoiding the limitation of the VBA/VB6 property windows and the limitations of hybrid controls.
+* Refinements have been made to begin the completion of the code base.  Individual constructor subs will have the same parameter order as their VB.NET counterparts.
