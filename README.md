@@ -21,3 +21,8 @@ Progress updates:
 * Refinements have been made to begin the completion of the code base.  Individual constructor subs will have the same parameter order as their VB.NET counterparts.
 * The VB Form Designer can reload the new designer format for VB6.
 * Several new classes have been added.  See the class diagram for any new additions to the VB.NET/VB6 framework: https://github.com/WindowStations/VB6NameSpaces/issues/1
+
+7-10-21
+* Images can be saved/loaded to/from the designer file.
+* Constructors subs have been added to classes to match the same order as VB.NET contructors.
+* Class buckets containing classes as properties can be used as an interface, ie when using the implements keyword in VB6
