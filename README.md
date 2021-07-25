@@ -1,8 +1,9 @@
 # VB6NameSpaces - BETA feedback wanted
 https://www.youtube.com/watch?v=RJmDeGAroR4
 
-A single NET assembly now makes it possible to back-port VB.NET code to VBA/VB6 by interoperating with VB.NET UserControls and NameSpaces instanced as nested class buckets.
-This is still a work in progress, however significant strides have been made to fully support VB.NET controls/properties/events and Namespaces directly through advanced dynamic interop. Including, but not limited to: BakcgroundWorkers; Multi-Threading; FileSystemWatchers; and 64 bit support are now made available to VBA/VB6.
+This VB.NET (VB.dll) assembly makes it possible to fully interoperate with VBA/VB6 code.  Forms, component controls, and many namespaces are exposed to VBA/VB6 IDE.
+The goal is to support VB.NET forms/controls/properties/events and Namespaces on VBA/VB6. 
+BakcgroundWorkers; Multi-Threading; FileSystemWatchers; and 64 bit support...
 
 * Step 1.  Download and unzip the VB project to the desired location.
 * Step 2.  Install the VB.dll with SetupRegisterAssembly.exe (source included with drag/drop feature)
