@@ -28,3 +28,10 @@ Progress updates:
 * Images can be saved/loaded to/from the designer file.
 * Constructors subs have been added to classes to match the same order as VB.NET contructors.
 * Class buckets containing classes as properties can be used as an interface, ie when using the implements keyword in VB6
+
+7-25-21 (internal version)
+* Enumerations are saved/loaded to/from the designer file.
+* DataGridView control added to toolbox
+* DataSet (associated xml classes) added to toolbox
+
+
