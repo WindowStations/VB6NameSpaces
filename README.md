@@ -36,7 +36,7 @@ Progress updates:
 * DataSet (associated xml classes) added to toolbox
 
 7-27-21
-DataGridView now visible, optional hybrid control for vb6 toolbox
+* DataGridView now visible, optional hybrid control for vb6 toolbox
 
 
 
