@@ -32,8 +32,8 @@ Progress updates:
 
 7-25-21 (internal version)
 * Enumerations are saved/loaded to/from the designer file.
-* DataGridView control added to toolbox
-* DataSet (associated xml classes) added to toolbox
+* DataGridView (Bound & Unbound) control added to toolbox
+* DataSet (associated xml classes) component added to toolbox
 
 7-27-21
 * DataGridView now visible, optional hybrid control for vb6 toolbox
