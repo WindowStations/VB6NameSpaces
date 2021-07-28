@@ -38,5 +38,6 @@ Progress updates:
 7-27-21
 * DataGridView now visible, optional hybrid control for vb6 toolbox
 
-
-
+7-28-21
+* XmlSqlClient classes added to compliment DataSet and DataGridView
+* A few constructors were added and/or refined throughout the solution
