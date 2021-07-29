@@ -41,3 +41,6 @@ Progress updates:
 7-28-21
 * XmlSqlClient classes added to compliment DataSet and DataGridView
 * A few constructors were added and/or refined throughout the solution
+
+7-29-21
+* Test re-compile (internal version split) with Visual Studio 2022 preview 2.  Confirmed compatibility with .NET 4.8+ framework.
