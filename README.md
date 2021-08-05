@@ -1,4 +1,4 @@
-# VB6NameSpaces - BETA feedback wanted
+# VB6NameSpaces (VB.dll) - BETA feedback wanted
 https://www.youtube.com/watch?v=RJmDeGAroR4
 
 This VB.NET (VB.dll) assembly makes it possible to fully interoperate with VBA/VB6 code.  Forms, component controls, and many namespaces are exposed to VBA/VB6 IDE.
