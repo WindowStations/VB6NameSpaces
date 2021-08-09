@@ -44,3 +44,6 @@ Progress updates:
 
 7-29-21
 * Test re-compile (internal version split) with Visual Studio 2022 preview 2.  Confirmed compatibility with .NET 4.8+ framework.
+
+8-8-21
+* A manifest file is now output for regfree com.  It seems to work here, but feedback wanted.
