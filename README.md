@@ -47,3 +47,6 @@ Progress updates:
 
 8-8-21
 * A manifest file is now output for regfree com.  It seems to work here, but feedback wanted.
+
+8-9-21
+* Regfree does not work with 64 bit Office 2016 pro plus, displaying a "class not registered" error.
