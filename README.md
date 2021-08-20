@@ -52,4 +52,4 @@ Progress updates:
 * Regfree does not work with 64 bit Office 2016 pro plus, displaying a "class not registered" error.
 
 8-20-21
-* Finally, I successfully made a standalone installer for VB6Porter with VB6Namespaces and VB65.  The installer is actually a minimal Nano install, plus a few extra files that were needed for stability and function, ie VB.dll (.net), msstdfmt.dll (link formatting), msaddndr.dll (addins), and VBA 6.5 core.  CAUTION, this may work side by side with Visual Studio installation, but the uninstallation behavior is not guaranteed in tandem.  https://github.com/VBForumsCommunity/VB6Porter/raw/master/SetupVB6Porter.exe
+* Finally, I successfully made a standalone installer for VB6Porter with VB6Namespaces and VB65.  The installer is actually a minimal Nano install, plus a few extra files that were needed for stability and function, ie VB.dll (.net), msstdfmt.dll (link formatting), msaddndr.dll (addins), and VBA 6.5 core.  CAUTION, this may work side by side with a Visual Studio installation, but the uninstallation behavior is not guaranteed in tandem.  https://github.com/VBForumsCommunity/VB6Porter/raw/master/SetupVB6Porter.exe
