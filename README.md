@@ -53,3 +53,6 @@ Progress updates:
 
 8-20-21
 * Finally, I successfully made a standalone installer for VB6Porter with VB6Namespaces and VB65.  The installer is actually a minimal Nano install, plus a few extra files that were needed for stability and function, ie VB.dll (.net), msstdfmt.dll (link formatting), msaddndr.dll (addins), and VBA 6.5 core.  CAUTION, this may work side by side with a Visual Studio installation, but the uninstallation behavior is not guaranteed in tandem.  https://github.com/VBForumsCommunity/VB6Porter/raw/master/SetupVB6Porter.exe
+
+8-23-21
+* Installer now has an optional task to update files to the newest versions, this will replace any outdated files related to Visual Basic with a version from 2007 or newer.  The installation is in-place, ie "Microsoft Visual Studio" folder inside the program files folder (x86).
