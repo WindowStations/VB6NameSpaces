@@ -56,3 +56,6 @@ Progress updates:
 
 8-23-21
 * Installer now has an optional task to update files to the newest versions, this will replace any outdated files related to Visual Basic with VBA 6.5 (2007 or newer updates).  The installation is in-place, ie "Microsoft Visual Studio" folder inside the program files folder (x86).  The installer will now install msstdfmt.dll to SysWow64 directly, since innosetup kept mistakenly installing to System32.  Fixed, large projects on 64 bit systems no longer crash during compile/linking.
+
+8-25-21
+* The most important updated files to VB6 users are related to the compiler process, ie VB6DEBUG.DLL, LINK.EXE, and also MSPDB60.DLL are from 2007.
