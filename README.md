@@ -65,3 +65,4 @@ Progress updates:
 * The installer includes an icon pack for explorer with icons from VBA 6.5 (2007).
 * Icons are now restricted to only the ids available in the resource file, helps avoid overwriting icons that another program has modified, and also helps avoid incurring excessive Loading calls for a resource image that does not exist.
 * Added the hidden easter egg with Visual Basic song:  "Show VB Credits" is included in the help menu.
+* Added context menu items for semi-automatic code editing, ie Format procedure code, Format module code, and Format project code.  These functions will indent developer code in standard Visual Basic format.
