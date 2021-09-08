@@ -61,7 +61,7 @@ Progress updates:
 * The most important updated files to VB6 users are related to the compiler process, ie VB6DEBUG.DLL, LINK.EXE, and also MSPDB60.DLL are from 2007.
 
 9-7-21
-* Commanbar buttons initiate correctly now, using the IsDisposed property and isloaded flags.
+* Commandbar buttons initiate correctly now, using the IsDisposed property and isloaded flags.
 * The installer includes an icon pack for explorer with icons from VBA 6.5 (2007).
 * Icons are now restricted to only the ids available in the resource file, helps avoid overwriting icons that another program has modified, and also helps avoid incurring excessive Loading calls for a resource image that does not exist.
 * Added the hidden easter egg with Visual Basic song:  "Show VB Credits" is included in the help menu.
