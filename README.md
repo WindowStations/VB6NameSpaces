@@ -70,3 +70,7 @@ Progress updates:
 
 9-21-21
 * Changed names with underscore character to be displayed correctly despite the naming collision issue that was causing interop to hide names inside brackets, ie [Readonly].  The form designer may have some minor breaks to be resolved.  ...In the process of documenting functions inside vba6.dll to be used with the addin integration.  This dll exports a full pallette of internal low level functions that can be accessed for use.  At the core is Embedded Basic the Omega database engine that was retooled by Microsoft with intrinsic functions and UI.
+
+10-2-22
+* Fixed the form designer's feature to save to module.  Enumerations now retain the understore character to separate the property name from the property value.  Remove code by accident in previous update on 9/21/21.
+* Discovered many new function declarations inside of the undocumented VBA6.dll.  A large portion of the exported function declarations can be called and detected by an intercept hook, without crashing the caller.  Everything going on behind the scences can be seen and understood wihtout dissassembly.  Devolopers can duplicate and augment functionality to overcome the limitations of the extensibility model.
