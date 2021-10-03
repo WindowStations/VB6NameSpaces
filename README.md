@@ -73,4 +73,4 @@ Progress updates:
 
 10-2-22
 * Fixed the form designer's feature to save to module.  Enumerations now retain the understore character to separate the property name from the property value.  Remove code by accident in previous update on 9/21/21.
-* Discovered many new function declarations inside of the undocumented VBA6.dll.  A large portion of the exported function declarations can be called and detected by an intercept hook, without crashing the caller.  Everything going on behind the scences can be seen and understood wihtout dissassembly.  Devolopers can duplicate and augment functionality to overcome the limitations of the extensibility model.
+* Discovered many new function declarations inside of the undocumented VBA6.dll.  A large portion of the exported function declarations can be called and detected by an intercept hook, without crashing the caller.  Everything going on behind the scences can be seen and understood without dissassembly.  Devolopers can duplicate and augment functionality to overcome the limitations of the extensibility model.
