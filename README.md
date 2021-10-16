@@ -1,6 +1,8 @@
 # VB6NameSpaces (VB.dll) - BETA feedback wanted
 https://www.youtube.com/watch?v=RJmDeGAroR4
 
+![alt text](https://user-images.githubusercontent.com/39764372/127578868-cf190297-157c-46f1-a866-0e2e5721dcfd.png)
+
 This VB.NET (VB.dll) assembly makes it possible to fully interoperate with VBA/VB6 code.  Forms, component controls, and many namespaces are exposed to VBA/VB6 IDE.
 The goal is to support VB.NET forms/controls/properties/events and Namespaces on VBA/VB6. 
 BakcgroundWorkers; Multi-Threading; FileSystemWatchers; and 64 bit support...
