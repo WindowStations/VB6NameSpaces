@@ -1,6 +1,6 @@
 The VB.dll has been superceded by the VBANET.dll
 # VB6NameSpaces feedback wanted
-[https://www.youtube.com/watch?v=RJmDeGAroR4](https://youtube.com/playlist?list=PLkpDl8aMSQfMD-b8yTjnPlJLk447N_7me&si=0tcDj-29Fd7Q-my9)
+https://youtube.com/playlist?list=PLkpDl8aMSQfNj1yWnrSHbYK-qy2yQ-tLv&si=avtGeCkFaaLtq9nA
 
 ![alt text](https://user-images.githubusercontent.com/39764372/127578868-cf190297-157c-46f1-a866-0e2e5721dcfd.png)
 
