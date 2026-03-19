@@ -1,4 +1,4 @@
-The VB.dll has been superceded by the VBANET.dll
+The VB.dll has been superseded by the VBANET.dll
 # VB6NameSpaces feedback wanted
 https://youtube.com/playlist?list=PLkpDl8aMSQfNj1yWnrSHbYK-qy2yQ-tLv&si=avtGeCkFaaLtq9nA
 
